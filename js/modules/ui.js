@@ -3,18 +3,16 @@ import { getHabitProgress, isHabitCompleted } from './habits.js';
 import { getTodayDate } from './utils.js';
 
 const habitsContainer = document.getElementById('habits-list');
-
-// Variável para saber qual timer está rodando
 let runningHabitId = null;
 
 export function setRunningHabitId(id) {
     runningHabitId = id;
 }
 
-// --- FUNÇÃO AUXILIAR: Atualiza a Barra de Progresso Global (Topo) ---
+// --- Atualiza a Barra de Progresso Global (Topo) ---
 function updateGlobalProgress(visibleHabits, today) {
-    const progressBar = document.querySelector('.bg-brand-purple.w-0'); // A barra colorida
-    const progressText = document.querySelector('.text-brand-purple'); // O texto "0%"
+    const progressBar = document.querySelector('.bg-brand-purple.w-0');
+    const progressText = document.querySelector('.text-brand-purple');
 
     if (!progressBar || !progressText) return;
 
@@ -26,9 +24,7 @@ function updateGlobalProgress(visibleHabits, today) {
 
     let completedCount = 0;
     visibleHabits.forEach(habit => {
-        if (isHabitCompleted(habit, today)) {
-            completedCount++;
-        }
+        if (isHabitCompleted(habit, today)) completedCount++;
     });
 
     const percentage = Math.round((completedCount / visibleHabits.length) * 100);
@@ -36,28 +32,57 @@ function updateGlobalProgress(visibleHabits, today) {
     progressBar.style.width = `${percentage}%`;
     progressText.innerText = `${percentage}%`;
     
+    // --- LÓGICA DO CONFETE INTELIGENTE (CORRIGIDA) ---
+    // Cria uma chave única para o dia de hoje, ex: "habitflow_celebrated_2023-10-25"
+    const celebrationKey = `habitflow_celebrated_${today}`;
+
     if (percentage === 100) {
         progressText.innerText = '100% 🎉';
+        
+        // Verifica no "HD" do navegador se já celebramos hoje
+        const hasCelebrated = localStorage.getItem(celebrationKey);
+
+        if (!hasCelebrated) {
+            triggerConfetti();
+            // Marca no "HD" que já celebramos hoje
+            localStorage.setItem(celebrationKey, "true");
+        }
+    } else {
+        // Se o usuário desmarcou algo e saiu do 100%, removemos a trava.
+        // Assim, se ele completar de novo, terá confetes novamente.
+        localStorage.removeItem(celebrationKey);
     }
 }
 
-// --- FUNÇÃO PRINCIPAL: Renderizar a Lista ---
+function triggerConfetti() {
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#FF6B35', '#7209B7', '#FFD166']
+        });
+    }
+}
+
+// --- Renderizar a Lista de Hábitos ---
 export function renderHabitList(habits) {
     if (!habitsContainer) return;
     
     habitsContainer.innerHTML = '';
     
-    // 1. Filtro de Dias (O porteiro do calendário)
     const todayIndex = new Date().getDay();
+    const todayDate = getTodayDate();
+
+    // Filtra para mostrar apenas o que é de hoje
     const visibleHabits = habits.filter(habit => {
         if (!habit.frequency || habit.frequency.length === 0) return true;
         return habit.frequency.includes(todayIndex);
     });
 
-    // 2. Atualiza a barra de progresso global com os hábitos de HOJE
-    updateGlobalProgress(visibleHabits, getTodayDate());
+    updateGlobalProgress(visibleHabits, todayDate);
 
-    // 3. Empty State (Se não tiver nada hoje)
+    // Empty State
     if (visibleHabits.length === 0) {
         habitsContainer.innerHTML = `
             <div class="text-center py-16 opacity-50">
@@ -69,26 +94,20 @@ export function renderHabitList(habits) {
         return;
     }
 
-    // 4. Desenha os Cards
     visibleHabits.forEach(habit => {
-        const today = getTodayDate();
-        const progress = getHabitProgress(habit, today);
-        const isDone = isHabitCompleted(habit, today);
+        const progress = getHabitProgress(habit, todayDate);
+        const isDone = isHabitCompleted(habit, todayDate);
         const isRunning = runningHabitId === habit.id;
 
-        // --- LÓGICA DE ESTILOS ---
         let cardClass = "bg-white border-brand-dark shadow-neo hover:translate-x-[2px] hover:translate-y-[2px]";
         let btnIcon = habit.type === 'timer' ? '<i class="ph-fill ph-play"></i>' : '+';
         let btnClass = "bg-brand-light hover:bg-brand-orange hover:text-white shadow-sm";
 
-        // Estilo: Concluído
         if (isDone) {
             cardClass = "bg-green-50 border-green-200 opacity-75";
             btnIcon = '<i class="ph-bold ph-check"></i>';
             btnClass = "bg-green-500 text-white shadow-none cursor-default";
-        }
-        // Estilo: Rodando Timer
-        else if (isRunning) {
+        } else if (isRunning) {
             cardClass = "bg-blue-50 border-blue-200 shadow-neo translate-x-[2px] translate-y-[2px]";
             btnIcon = '<i class="ph-fill ph-pause"></i>';
             btnClass = "bg-brand-orange text-white shadow-none animate-pulse";
@@ -131,7 +150,7 @@ export function renderHabitList(habits) {
     });
 }
 
-// --- FUNÇÕES DE UTILIDADE ---
+// Controle do Modal
 export function toggleModal(show) {
     const modal = document.getElementById('create-habit-modal');
     if (modal) {

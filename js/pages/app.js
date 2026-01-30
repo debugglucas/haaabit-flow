@@ -8,7 +8,7 @@ let activeTimerId = null;
 let timerInterval = null;
 
 function init() {
-    console.log("🚀 App Iniciado (V4 - Edit Mode)!");
+    console.log("🚀 App Iniciado (V5 - Silent Mode)!");
     habits = getStoredHabits();
     renderHabitList(habits);
     updateDateDisplay();
@@ -46,7 +46,8 @@ function toggleTimer(habitId) {
             setRunningHabitId(null);
         }
         renderHabitList(habits);
-    }, 60000);
+        
+    }, 60000); // 1 minuto real
 }
 
 // --- FUNÇÃO AUXILIAR: Preencher o Modal com dados existentes ---
@@ -60,11 +61,11 @@ function openEditModal(habit) {
     form.querySelector('[name="habit-name"]').value = habit.title;
     form.querySelector('[name="habit-icon"]').value = habit.icon;
     
-    // 3. Seleciona o Tipo (Click no radio dispara a lógica visual)
+    // 3. Seleciona o Tipo
     const radio = form.querySelector(`input[value="${habit.type}"]`);
     if (radio) {
         radio.checked = true;
-        radio.dispatchEvent(new Event('change')); // Força atualização visual
+        radio.dispatchEvent(new Event('change'));
     }
 
     // 4. Preenche Metas
@@ -74,7 +75,7 @@ function openEditModal(habit) {
         form.querySelector('[name="habit-target"]').value = habit.target;
     }
 
-    // 5. Preenche Dias (Se for flexível)
+    // 5. Preenche Dias
     if (habit.type === 'flexible' && habit.frequency) {
         const checkboxes = form.querySelectorAll('.day-checkbox');
         checkboxes.forEach(cb => {
@@ -111,14 +112,12 @@ function setupWizardLogic() {
 }
 
 function setupEventListeners() {
-    // 1. BOTÃO NOVO HÁBITO (Limpa tudo antes de abrir)
+    // 1. BOTÃO NOVO HÁBITO
     const btnOpen = document.getElementById('btn-open-modal');
     if (btnOpen) btnOpen.addEventListener('click', () => {
         resetForm();
-        // Esconde botão de excluir no modo criação
         document.getElementById('btn-delete-habit').classList.add('hidden');
-        document.querySelector('[name="habit-id"]').value = ""; // Limpa ID
-        // Reseta visual dos tipos para Rotina
+        document.querySelector('[name="habit-id"]').value = "";
         const routineRadio = document.querySelector('input[value="routine"]');
         if(routineRadio) {
             routineRadio.checked = true;
@@ -133,14 +132,14 @@ function setupEventListeners() {
         if (el) el.addEventListener('click', () => toggleModal(false));
     });
 
-    // 2. SALVAR (Criação ou Edição)
+    // 2. SALVAR
     const form = document.getElementById('create-habit-form');
     if (form) {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const formData = new FormData(form);
             
-            const id = formData.get('habit-id'); // TEM ID?
+            const id = formData.get('habit-id');
             const title = formData.get('habit-name');
             const icon = formData.get('habit-icon');
             const type = formData.get('habit-type');
@@ -159,20 +158,15 @@ function setupEventListeners() {
             if (!title) return alert("Nome obrigatório!");
 
             if (id) {
-                // --- MODO EDIÇÃO (ATUALIZAR) ---
-                console.log("📝 Atualizando hábito existente:", id);
+                // EDIÇÃO
                 habits = habits.map(h => {
                     if (h.id === id) {
-                        return { 
-                            ...h, // Mantém histórico e datas
-                            title, icon, target, type, frequency 
-                        }; 
+                        return { ...h, title, icon, target, type, frequency }; 
                     }
                     return h;
                 });
             } else {
-                // --- MODO CRIAÇÃO (NOVO) ---
-                console.log("✨ Criando novo hábito");
+                // CRIAÇÃO
                 const newHabit = createHabitModel(title, icon, target, type, frequency);
                 habits.push(newHabit);
             }
@@ -184,7 +178,7 @@ function setupEventListeners() {
         });
     }
 
-    // 3. BOTÃO DELETAR (Dentro do Modal)
+    // 3. DELETAR
     const btnDeleteInside = document.getElementById('btn-delete-habit');
     if (btnDeleteInside) {
         btnDeleteInside.addEventListener('click', () => {
@@ -193,10 +187,7 @@ function setupEventListeners() {
             
             if (id && confirm("Tem certeza? Isso apagará todo o histórico deste hábito para sempre.")) {
                 habits = habits.filter(h => h.id !== id);
-                
-                // Se estava rodando timer dele, para
                 if (activeTimerId === id) clearInterval(timerInterval);
-
                 saveStoredHabits(habits);
                 renderHabitList(habits);
                 toggleModal(false);
@@ -204,12 +195,11 @@ function setupEventListeners() {
         });
     }
 
-    // 4. CLIQUES NA LISTA (Agora chama o Editar)
+    // 4. CLIQUES NA LISTA
     const listContainer = document.getElementById('habits-list');
     if (listContainer) {
         listContainer.addEventListener('click', (event) => {
-            
-            // CLIQUE NO LÁPIS (EDITAR)
+            // EDITAR
             const btnEdit = event.target.closest('.edit-btn');
             if (btnEdit) {
                 const card = btnEdit.closest('.habit-card');
@@ -219,7 +209,7 @@ function setupEventListeners() {
                 return;
             }
 
-            // AÇÃO PRINCIPAL (Check ou Play/Pause)
+            // AÇÃO PRINCIPAL
             const btnAction = event.target.closest('.action-btn');
             if (btnAction) {
                 const card = btnAction.closest('.habit-card');

@@ -1,0 +1,27 @@
+{
+  "brand": {
+    "name": "HabitFlow",
+    "vibe": "Neo-Brutalism, High Contrast, Playful"
+  },
+  "colors": {
+    "primary": "#FF6B35",    // Aquele Laranja energético (Ação principal)
+    "secondary": "#A855F7",  // Roxo (Gamificação/XP)
+    "accent": "#FACC15",     // Amarelo (Destaques/Badges)
+    "background": "#FAFAFA", // Off-white (Não cansa a vista)
+    "surface": "#FFFFFF",    // Cards
+    "text": "#111827",       // Quase preto (Leitura)
+    "border": "#000000"      // Bordas duras (Assinatura do estilo)
+  },
+  "typography": {
+    "headings": "Space Grotesk", // Geométrica e moderna
+    "body": "Inter"              // Limpa e legível para UI
+  },
+  "shadows": {
+    "hard": "4px 4px 0px 0px #000000", // A sombra dura clássica
+    "hard-sm": "2px 2px 0px 0px #000000" // Para botões menores
+  },
+  "borderRadius": {
+    "base": "0.75rem", // 12px (rounded-xl)
+    "card": "1rem"     // 16px (rounded-2xl)
+  }
+}

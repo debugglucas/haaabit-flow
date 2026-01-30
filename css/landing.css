@@ -1,0 +1,28 @@
+/* css/landing.css */
+
+/* Animação suave de flutuar para elementos decorativos */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Blobs de fundo (Manchas coloridas) */
+.blob {
+    position: absolute;
+    filter: blur(80px);
+    z-index: -1; /* Fica atrás de tudo */
+    opacity: 0.6;
+}
+
+/* Utilitário para rotação leve nos cards */
+.rotate-hover {
+    transition: transform 0.3s ease;
+}
+.rotate-hover:hover {
+    transform: rotate(2deg) scale(1.02);
+}

@@ -32,24 +32,23 @@ function updateGlobalProgress(visibleHabits, today) {
     progressBar.style.width = `${percentage}%`;
     progressText.innerText = `${percentage}%`;
     
-    // --- LÓGICA DO CONFETE INTELIGENTE (CORRIGIDA) ---
-    // Cria uma chave única para o dia de hoje, ex: "habitflow_celebrated_2023-10-25"
+    // --- LÓGICA DO CONFETE INTELIGENTE (RESOLVIDO) ---
+    // Cria uma chave única para o dia de hoje. Ex: "habitflow_celebrated_2026-01-30"
     const celebrationKey = `habitflow_celebrated_${today}`;
 
     if (percentage === 100) {
         progressText.innerText = '100% 🎉';
         
-        // Verifica no "HD" do navegador se já celebramos hoje
+        // Pergunta pro navegador: "Já soltei confete hoje?"
         const hasCelebrated = localStorage.getItem(celebrationKey);
 
         if (!hasCelebrated) {
             triggerConfetti();
-            // Marca no "HD" que já celebramos hoje
+            // Marca que já celebrou para não repetir no F5
             localStorage.setItem(celebrationKey, "true");
         }
     } else {
-        // Se o usuário desmarcou algo e saiu do 100%, removemos a trava.
-        // Assim, se ele completar de novo, terá confetes novamente.
+        // Se baixou de 100%, apaga a chave. Assim se completar de novo, celebra.
         localStorage.removeItem(celebrationKey);
     }
 }
@@ -66,7 +65,8 @@ function triggerConfetti() {
 }
 
 // --- Renderizar a Lista de Hábitos ---
-export function renderHabitList(habits) {
+// NOVIDADE: Aceita 'activeSeconds' para mostrar a contagem regressiva visual
+export function renderHabitList(habits, activeSeconds = 0) {
     if (!habitsContainer) return;
     
     habitsContainer.innerHTML = '';
@@ -103,6 +103,21 @@ export function renderHabitList(habits) {
         let btnIcon = habit.type === 'timer' ? '<i class="ph-fill ph-play"></i>' : '+';
         let btnClass = "bg-brand-light hover:bg-brand-orange hover:text-white shadow-sm";
 
+        // --- LÓGICA VISUAL DO TIMER (MM:SS) ---
+        let displayProgressText = `${progress} / ${habit.target}`;
+        
+        if (habit.type === 'timer') {
+            if (isRunning) {
+                // Formata os segundos para ter sempre 2 dígitos (ex: 5 vira 05)
+                const secFormatted = activeSeconds < 10 ? `0${activeSeconds}` : activeSeconds;
+                // Mostra: "15:05 / 30"
+                displayProgressText = `<span class="text-brand-orange font-black text-sm">${progress}:${secFormatted}</span> / ${habit.target}`;
+            } else {
+                displayProgressText = `${progress} / ${habit.target}`;
+            }
+            displayProgressText += ' min';
+        }
+
         if (isDone) {
             cardClass = "bg-green-50 border-green-200 opacity-75";
             btnIcon = '<i class="ph-bold ph-check"></i>';
@@ -137,7 +152,7 @@ export function renderHabitList(habits) {
                     </div>
                     
                     <div class="text-xs font-bold text-gray-400 mt-1 text-right">
-                        ${progress} / ${habit.target} ${habit.type === 'timer' ? 'min' : ''}
+                        ${displayProgressText}
                     </div>
                 </div>
 

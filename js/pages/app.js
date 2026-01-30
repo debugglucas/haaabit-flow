@@ -6,9 +6,10 @@ import { getTodayDate } from '../modules/utils.js';
 let habits = [];
 let activeTimerId = null;
 let timerInterval = null;
+let secondsCounter = 0; // <--- NOVO: Contador de segundos visual
 
 function init() {
-    console.log("🚀 App Iniciado (V5 - Silent Mode)!");
+    console.log("🚀 App Iniciado (V6 - Seconds Ticker)!");
     habits = getStoredHabits();
     renderHabitList(habits);
     updateDateDisplay();
@@ -17,37 +18,59 @@ function init() {
 }
 
 function toggleTimer(habitId) {
+    // SE JÁ ESTIVER RODANDO ESSE MESMO HÁBITO -> PAUSA
     if (activeTimerId === habitId) {
         clearInterval(timerInterval);
         activeTimerId = null;
         setRunningHabitId(null);
+        secondsCounter = 0; // Reseta os segundos visuais ao pausar
         renderHabitList(habits);
         return;
     }
-    if (activeTimerId) clearInterval(timerInterval);
 
+    // SE TIVER OUTRO RODANDO -> PARA O ANTERIOR
+    if (activeTimerId) {
+        clearInterval(timerInterval);
+        secondsCounter = 0;
+    }
+
+    // INICIA O NOVO
     activeTimerId = habitId;
     setRunningHabitId(habitId);
-    renderHabitList(habits);
+    renderHabitList(habits); // Renderiza o estado inicial (00 segundos)
 
+    // RODA A CADA 1 SEGUNDO (1000ms)
     timerInterval = setInterval(() => {
         const habit = habits.find(h => h.id === activeTimerId);
+        
         if (!habit) {
             clearInterval(timerInterval);
             return;
         }
-        const today = getTodayDate();
-        incrementHabitProgress(habit, today);
-        saveStoredHabits(habits);
-        
-        if (isHabitCompleted(habit, today)) {
-            clearInterval(timerInterval);
-            activeTimerId = null;
-            setRunningHabitId(null);
+
+        // 1. Aumenta o contador visual
+        secondsCounter++;
+
+        // 2. Se bateu 60 segundos, salva 1 minuto no banco
+        if (secondsCounter >= 60) {
+            const today = getTodayDate();
+            incrementHabitProgress(habit, today);
+            saveStoredHabits(habits);
+            secondsCounter = 0; // Reseta para o próximo minuto
+
+            // Verifica se acabou a meta total
+            if (isHabitCompleted(habit, today)) {
+                clearInterval(timerInterval);
+                activeTimerId = null;
+                setRunningHabitId(null);
+                // (Aqui entraria o som se estivesse ativo)
+            }
         }
-        renderHabitList(habits);
+
+        // 3. Atualiza a tela a cada segundo (passando os segundos atuais)
+        renderHabitList(habits, secondsCounter);
         
-    }, 60000); // 1 minuto real
+    }, 1000); 
 }
 
 // --- FUNÇÃO AUXILIAR: Preencher o Modal com dados existentes ---

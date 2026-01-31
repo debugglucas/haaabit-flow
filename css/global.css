@@ -1,3 +1,6 @@
+/* css/app.css */
+@import url('app.css');
+
 /* css/global.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&display=swap');
 
@@ -15,4 +18,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Esconde o check padrão do radio button */
+.type-radio:checked + div {
+    border-color: #FF6B35; /* Laranja */
+    background-color: #FFF7ED; /* Laranja bem claro */
+    color: #FF6B35;
+}
+.type-radio:checked + div .check-icon {
+    opacity: 1;
+}
+        
+/* Checkbox de dias da semana */
+.day-checkbox:checked + div {
+    background-color: #111827; /* Preto */
+    color: white;
+    border-color: #111827;
 }

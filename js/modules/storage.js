@@ -1,19 +1,30 @@
-// js/modules/storage.js
+const HABITS_KEY = 'habitflow_data';
+const PROFILE_KEY = 'habitflow_profile'; 
 
-const STORAGE_KEY = 'habitflow_db_v1';
-
-// Pega todos os dados ou retorna um array vazio se for a primeira vez
+// --- HÁBITOS ---
 export function getStoredHabits() {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    const stored = localStorage.getItem(HABITS_KEY);
+    return stored ? JSON.parse(stored) : [];
 }
 
-// Salva a lista inteira no navegador
 export function saveStoredHabits(habits) {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(habits));
-    } catch (error) {
-        console.error("Erro ao salvar no LocalStorage:", error);
-        alert("Ops! Memória cheia ou erro de privacidade.");
-    }
+    localStorage.setItem(HABITS_KEY, JSON.stringify(habits));
+}
+
+// --- PERFIL (NOVO) ---
+export function getUserProfile() {
+    const stored = localStorage.getItem(PROFILE_KEY);
+    if (stored) return JSON.parse(stored);
+
+    // Perfil inicial padrão
+    return {
+        name: 'Lucas Dev', 
+        level: 1,
+        currentXp: 0,
+        nextLevelXp: 100
+    };
+}
+
+export function saveUserProfile(profile) {
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
 }

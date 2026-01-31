@@ -1,0 +1,113 @@
+ /* Animação de Entrada do Modal (Suave e Rápida) */
+ @keyframes modalEnter {
+     from {
+         opacity: 0;
+         transform: scale(0.95) translateY(10px);
+     }
+
+     to {
+         opacity: 1;
+         transform: scale(1) translateY(0);
+     }
+ }
+
+ /* Animação dos Campos do Formulário (Slide Down) */
+ @keyframes slideIn {
+     from {
+         opacity: 0;
+         transform: translateY(-10px);
+         max-height: 0;
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0);
+         max-height: 500px;
+     }
+ }
+
+ .animate-modal-enter {
+     animation: modalEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+ }
+
+ /* Aplicado aos containers que aparecem/desaparecem */
+ .animate-slide-in {
+     animation: slideIn 0.3s ease-out forwards;
+ }
+
+ /* Transição suave para hover dos cards */
+ .card-transition {
+     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+ }
+
+
+ /* --- ANIMAÇÕES DE INTERFACE --- */
+
+ /* Modal: Entrada Suave */
+ @keyframes modalEnter {
+     from {
+         opacity: 0;
+         transform: scale(0.95) translateY(10px);
+     }
+
+     to {
+         opacity: 1;
+         transform: scale(1) translateY(0);
+     }
+ }
+
+ .animate-modal-enter {
+     animation: modalEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+ }
+
+ /* Formulário: Slide Down */
+ @keyframes slideIn {
+     from {
+         opacity: 0;
+         transform: translateY(-10px);
+         max-height: 0;
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0);
+         max-height: 500px;
+     }
+ }
+
+ .animate-slide-in {
+     animation: slideIn 0.3s ease-out forwards;
+ }
+
+ /* Cards: Transição suave */
+ .card-transition {
+     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+ }
+
+ /* --- NOVO: ANIMAÇÃO DOS TOASTS (NOTIFICAÇÕES) --- */
+ @keyframes toastSlideIn {
+     from {
+         transform: translateX(120%);
+         opacity: 0;
+     }
+
+     to {
+         transform: translateX(0);
+         opacity: 1;
+     }
+ }
+
+ @keyframes toastFadeOut {
+     to {
+         transform: translateX(100%);
+         opacity: 0;
+     }
+ }
+
+ .toast-enter {
+     animation: toastSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+ }
+
+ .toast-leave {
+     animation: toastFadeOut 0.3s ease-in forwards;
+ }

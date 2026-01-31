@@ -10,37 +10,21 @@
     <script src="../js/tailwind.config.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        /* Esconde o check padrão do radio button */
-        .type-radio:checked + div {
-            border-color: #FF6B35; /* Laranja */
-            background-color: #FFF7ED; /* Laranja bem claro */
-            color: #FF6B35;
-        }
-        .type-radio:checked + div .check-icon {
-            opacity: 1;
-        }
-        
-        /* Checkbox de dias da semana */
-        .day-checkbox:checked + div {
-            background-color: #111827; /* Preto */
-            color: white;
-            border-color: #111827;
-        }
-    </style>
+
 </head>
 <body class="bg-brand-light text-brand-dark h-screen flex overflow-hidden">
 
     <aside class="w-64 bg-white border-r-3 border-brand-dark flex flex-col hidden md:flex z-20">
+        
         <div class="h-20 flex items-center px-6 border-b-3 border-brand-dark bg-brand-yellow/10">
             <a href="../index.html" class="flex items-center gap-2 hover:opacity-75 transition-opacity">
                 <span class="text-2xl">✅</span>
-                <span class="font-display text-xl font-bold">HabitFlow</span>
+                <span class="font-display text-xl font-bold italic tracking-tight">HabitFlow</span>
             </a>
         </div>
+
         <nav class="flex-1 p-4 space-y-2">
-            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-brand-orange text-white rounded-xl border-2 border-brand-dark shadow-neo-sm font-bold">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-brand-orange text-white rounded-xl border-2 border-brand-dark shadow-neo-sm font-bold active:scale-95 transition-transform">
                 <i class="ph-bold ph-check-square text-xl"></i>
                 Meus Hábitos
             </a>
@@ -50,12 +34,25 @@
                 <span class="ml-auto text-[10px] bg-gray-200 px-2 py-0.5 rounded-full text-gray-600 font-bold">EM BREVE</span>
             </a>
         </nav>
-        <div class="p-4 border-t-3 border-brand-dark bg-gray-50">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-brand-purple border-2 border-brand-dark flex items-center justify-center text-white font-bold">L</div>
+
+        <div class="p-5 border-t-3 border-brand-dark bg-gray-50">
+            <div class="flex items-center gap-3 mb-3">
+                <div id="user-avatar" class="w-12 h-12 rounded-full bg-brand-purple border-2 border-brand-dark flex items-center justify-center text-white font-black text-lg shadow-sm">L</div>
                 <div>
-                    <div class="text-sm font-bold">Lucas Dev</div>
-                    <div class="text-xs text-gray-500">Nível 2 · Arquiteto</div>
+                    <div id="user-name" class="text-sm font-black text-brand-dark leading-tight">Lucas Dev</div>
+                    <div id="user-level-text" class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mt-0.5">Nível 1 · Novato</div>
+                </div>
+            </div>
+
+            <div class="w-full">
+                <div class="flex justify-between items-end mb-1">
+                    <span class="text-[10px] font-black text-brand-purple uppercase">XP</span>
+                    <span id="user-xp-text" class="text-[10px] font-bold text-gray-400">0 / 100</span>
+                </div>
+                <div class="w-full h-3 bg-white rounded-full border-2 border-brand-dark overflow-hidden p-[1px]">
+                    <div id="user-xp-bar" class="h-full bg-brand-orange rounded-full transition-all duration-500 ease-out relative overflow-hidden" style="width: 0%">
+                        <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,25 +74,25 @@
                     </h1>
                     <p class="text-gray-600 font-medium">Vamos evoluir? 🚀</p>
                 </div>
-                <button id="btn-open-modal" class="group flex items-center gap-2 bg-brand-dark text-white px-5 py-3 rounded-xl border-3 border-transparent shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-white hover:text-brand-dark hover:border-brand-dark transition-all">
+                <button id="btn-open-modal" class="group flex items-center gap-2 bg-brand-dark text-white px-5 py-3 rounded-xl border-3 border-transparent shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-white hover:text-brand-dark hover:border-brand-dark active:scale-95 transition-all duration-200">
                     <i class="ph-bold ph-plus text-lg"></i>
                     <span class="font-bold">Novo Hábito</span>
                 </button>
             </header>
 
-            <div class="bg-white border-3 border-brand-dark rounded-2xl p-6 shadow-neo mb-10">
+            <div class="bg-white border-3 border-brand-dark rounded-2xl p-6 shadow-neo mb-10 hover:shadow-neo-pressed transition-all duration-300">
                 <div class="flex justify-between items-end mb-2">
                     <span class="font-bold text-sm text-gray-500 tracking-wider">PROGRESSO DIÁRIO</span>
                     <span class="font-display text-2xl font-black text-brand-purple">0%</span>
                 </div>
                 <div class="w-full h-4 bg-gray-200 rounded-full border-2 border-brand-dark overflow-hidden">
-                    <div class="h-full bg-brand-purple w-0 transition-all duration-500"></div>
+                    <div class="h-full bg-brand-purple w-0 transition-all duration-1000 ease-out"></div>
                 </div>
             </div>
 
             <div id="habits-list" class="space-y-4">
                 <div class="text-center py-16 opacity-50">
-                    <div class="text-6xl mb-4">💤</div>
+                    <div class="text-6xl mb-4 animate-bounce">💤</div>
                     <h3 class="font-display text-2xl font-bold text-gray-400">Carregando...</h3>
                 </div>
             </div>
@@ -103,13 +100,13 @@
     </main>
 
     <div id="create-habit-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div id="modal-backdrop" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm"></div>
+        <div id="modal-backdrop" class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm transition-opacity duration-300"></div>
 
-        <div class="relative bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border-3 border-brand-dark shadow-neo p-6 animate-float">
+        <div class="relative bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border-3 border-brand-dark shadow-neo p-6 animate-modal-enter">
             
             <div class="flex justify-between items-center mb-6">
                 <h3 class="font-display text-2xl font-black">Criar Novo Hábito</h3>
-                <button id="btn-close-modal" class="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-500">
+                <button id="btn-close-modal" class="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-500 active:scale-90 duration-200">
                     <i class="ph-bold ph-x text-xl"></i>
                 </button>
             </div>
@@ -123,31 +120,31 @@
                     <div class="grid md:grid-cols-3 gap-3">
                         <label class="cursor-pointer group relative">
                             <input type="radio" name="habit-type" value="routine" class="type-radio hidden" checked>
-                            <div class="border-2 border-gray-200 rounded-xl p-4 hover:border-brand-orange transition-all h-full">
+                            <div class="card-transition border-2 border-gray-200 rounded-xl p-4 hover:border-brand-orange hover:bg-orange-50/20 transition-all h-full transform active:scale-95">
                                 <div class="text-2xl mb-2">🔁</div>
                                 <div class="font-bold text-brand-dark">Rotina</div>
                                 <div class="text-xs text-gray-500 leading-tight mt-1">Check simples. Todo dia.</div>
-                                <i class="ph-bold ph-check-circle absolute top-2 right-2 text-brand-orange opacity-0 check-icon transition-opacity"></i>
+                                <i class="ph-bold ph-check-circle absolute top-2 right-2 text-brand-orange opacity-0 check-icon transition-all duration-300 scale-50 group-has-[:checked]:scale-100 group-has-[:checked]:opacity-100"></i>
                             </div>
                         </label>
 
                         <label class="cursor-pointer group relative">
                             <input type="radio" name="habit-type" value="flexible" class="type-radio hidden">
-                            <div class="border-2 border-gray-200 rounded-xl p-4 hover:border-brand-orange transition-all h-full">
+                            <div class="card-transition border-2 border-gray-200 rounded-xl p-4 hover:border-brand-orange hover:bg-orange-50/20 transition-all h-full transform active:scale-95">
                                 <div class="text-2xl mb-2">📅</div>
                                 <div class="font-bold text-brand-dark">Flexível</div>
                                 <div class="text-xs text-gray-500 leading-tight mt-1">Dias específicos.</div>
-                                <i class="ph-bold ph-check-circle absolute top-2 right-2 text-brand-orange opacity-0 check-icon transition-opacity"></i>
+                                <i class="ph-bold ph-check-circle absolute top-2 right-2 text-brand-orange opacity-0 check-icon transition-all duration-300 scale-50 group-has-[:checked]:scale-100 group-has-[:checked]:opacity-100"></i>
                             </div>
                         </label>
 
                         <label class="cursor-pointer group relative">
                             <input type="radio" name="habit-type" value="timer" class="type-radio hidden">
-                            <div class="border-2 border-gray-200 rounded-xl p-4 hover:border-brand-orange transition-all h-full">
+                            <div class="card-transition border-2 border-gray-200 rounded-xl p-4 hover:border-brand-orange hover:bg-orange-50/20 transition-all h-full transform active:scale-95">
                                 <div class="text-2xl mb-2">⏱️</div>
                                 <div class="font-bold text-brand-dark">Foco</div>
                                 <div class="text-xs text-gray-500 leading-tight mt-1">Pomodoro / Tempo.</div>
-                                <i class="ph-bold ph-check-circle absolute top-2 right-2 text-brand-orange opacity-0 check-icon transition-opacity"></i>
+                                <i class="ph-bold ph-check-circle absolute top-2 right-2 text-brand-orange opacity-0 check-icon transition-all duration-300 scale-50 group-has-[:checked]:scale-100 group-has-[:checked]:opacity-100"></i>
                             </div>
                         </label>
                     </div>
@@ -162,7 +159,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Ícone</label>
-                        <select name="habit-icon" class="w-full bg-brand-light border-3 border-gray-200 focus:border-brand-orange rounded-xl px-4 py-3 font-bold outline-none">
+                        <select name="habit-icon" class="w-full bg-brand-light border-3 border-gray-200 focus:border-brand-orange rounded-xl px-4 py-3 font-bold outline-none cursor-pointer">
                             <option>🔥</option><option>💧</option><option>📚</option><option>🏃‍♂️</option>
                             <option>🧘‍♂️</option><option>💻</option><option>💊</option><option>💤</option>
                             <option>🎸</option><option>💰</option>
@@ -170,46 +167,46 @@
                     </div>
                 </div>
 
-                <div id="setup-days" class="hidden p-4 bg-brand-light rounded-xl border-2 border-gray-200">
+                <div id="setup-days" class="hidden p-4 bg-brand-light rounded-xl border-2 border-gray-200 animate-slide-in">
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Repetir nos dias:</label>
                     <div class="flex justify-between gap-1">
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="0" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all select-none">D</div></label>
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="1" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all">S</div></label>
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="2" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all">T</div></label>
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="3" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all">Q</div></label>
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="4" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all">Q</div></label>
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="5" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all">S</div></label>
-                        <label class="cursor-pointer flex-1"><input type="checkbox" value="6" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all">S</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="0" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all select-none peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">D</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="1" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">S</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="2" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">T</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="3" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">Q</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="4" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">Q</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="5" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">S</div></label>
+                        <label class="cursor-pointer flex-1"><input type="checkbox" value="6" class="day-checkbox hidden"><div class="w-full aspect-square flex items-center justify-center bg-white border-2 border-gray-300 rounded-lg text-xs font-bold hover:border-brand-dark transition-all peer-checked:bg-brand-orange peer-checked:text-white peer-checked:border-brand-dark">S</div></label>
                     </div>
                 </div>
 
-                <div id="setup-timer" class="hidden p-4 bg-brand-light rounded-xl border-2 border-gray-200">
+                <div id="setup-timer" class="hidden p-4 bg-brand-light rounded-xl border-2 border-gray-200 animate-slide-in">
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Meta Diária (Minutos)</label>
                     <div class="flex items-center gap-3">
                         <i class="ph-bold ph-timer text-2xl text-brand-purple"></i>
-                        <input type="number" name="habit-minutes" value="30" min="1" max="240" class="w-full text-2xl font-black bg-transparent border-b-2 border-gray-300 focus:border-brand-purple outline-none p-2 text-center">
+                        <input type="number" name="habit-minutes" value="30" min="1" max="240" class="w-full text-2xl font-black bg-transparent border-b-2 border-gray-300 focus:border-brand-purple outline-none p-2 text-center transition-colors">
                         <span class="text-sm font-bold text-gray-500">min</span>
                     </div>
                 </div>
 
-                <div id="setup-target" class="p-4 bg-brand-light rounded-xl border-2 border-gray-200">
+                <div id="setup-target" class="p-4 bg-brand-light rounded-xl border-2 border-gray-200 animate-slide-in">
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Quantas vezes por dia?</label>
                     <div class="flex items-center gap-3">
-                        <input type="number" name="habit-target" value="1" min="1" class="w-full text-xl font-bold bg-white border-2 border-gray-300 rounded-lg px-3 py-2">
+                        <input type="number" name="habit-target" value="1" min="1" class="w-full text-xl font-bold bg-white border-2 border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-brand-orange transition-colors">
                     </div>
                 </div>
 
                 <div class="pt-4 flex flex-col gap-3">
                     <div class="flex gap-3">
-                        <button type="button" id="btn-cancel-modal" class="flex-1 py-3 font-bold text-gray-500 hover:bg-gray-100 rounded-xl transition-colors">
+                        <button type="button" id="btn-cancel-modal" class="flex-1 py-3 font-bold text-gray-500 hover:bg-gray-100 rounded-xl transition-colors active:scale-95 duration-200">
                             Cancelar
                         </button>
-                        <button type="submit" class="flex-1 bg-brand-orange text-white py-3 rounded-xl border-3 border-brand-dark shadow-neo-sm hover:shadow-neo hover:translate-x-[1px] hover:translate-y-[1px] font-bold transition-all">
+                        <button type="submit" class="flex-1 bg-brand-orange text-white py-3 rounded-xl border-3 border-brand-dark shadow-neo-sm hover:shadow-neo hover:translate-x-[1px] hover:translate-y-[1px] font-bold transition-all active:scale-95 duration-200">
                             Salvar Hábito
                         </button>
                     </div>
                     
-                    <button type="button" id="btn-delete-habit" class="hidden w-full py-2 text-red-500 font-bold text-sm hover:bg-red-50 rounded-xl transition-colors">
+                    <button type="button" id="btn-delete-habit" class="hidden w-full py-2 text-red-500 font-bold text-sm hover:bg-red-50 rounded-xl transition-colors active:scale-95">
                         Excluir Hábito
                     </button>
                 </div>
@@ -217,6 +214,8 @@
 
         </div>
     </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
     <script type="module" src="../js/pages/app.js"></script>
 </body>

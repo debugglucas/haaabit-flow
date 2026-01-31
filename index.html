@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HabitFlow - Seus hábitos, sem bullshit.</title>
-    
+
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/landing.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./js/tailwind.config.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
+
 <body class="bg-brand-light text-brand-dark overflow-x-hidden selection:bg-brand-orange selection:text-white">
 
-    <header class="sticky top-0 z-50 bg-brand-light/90 backdrop-blur-md border-b-3 border-brand-dark">
+    <header class="sticky top-0 z-50 bg-brand-light/90 backdrop-blur-md">
         <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            
+
             <div class="flex items-center gap-3 select-none group cursor-pointer">
                 <div>
                     <h1 class="font-display text-2xl font-black leading-none">HabitFlow</h1>
@@ -23,61 +26,71 @@
             </div>
 
             <div class="hidden md:flex md:ms-auto me-3 gap-8">
-                <a href="#features" class="font-bold hover:text-brand-orange hover:underline decoration-2 underline-offset-4 transition-all">Como funciona</a>
-                <a href="#opensource" class="font-bold hover:text-brand-orange hover:underline decoration-2 underline-offset-4 transition-all">Open Source</a>
+                <a href="#features"
+                    class="font-bold hover:text-brand-orange hover:underline decoration-2 underline-offset-4 transition-all">Como
+                    funciona</a>
+                <a href="#opensource"
+                    class="font-bold hover:text-brand-orange hover:underline decoration-2 underline-offset-4 transition-all">Open
+                    Source</a>
             </div>
 
-            <a href="./pages/app.html" class="bg-brand-orange text-white font-bold px-6 py-2 rounded-xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+            <a href="./pages/app.html"
+                class="bg-brand-orange text-white font-bold px-6 py-2 rounded-xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
                 Entrar no App 🚀
             </a>
         </nav>
     </header>
 
     <main class="relative pt-20 pb-32 overflow-hidden">
-        
+
         <div class="blob w-96 h-96 bg-brand-orange/30 top-0 right-0 animate-float"></div>
         <div class="blob w-80 h-80 bg-brand-purple/30 bottom-0 left-0 animate-float" style="animation-delay: 2s;"></div>
 
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-            
+
             <div class="space-y-8 relative z-10">
-                
-                <div class="inline-flex items-center gap-2 bg-brand-yellow px-4 py-2 rounded-full border-3 border-brand-dark shadow-neo transform -rotate-2 hover:rotate-0 transition-transform cursor-default">
+
+                <div
+                    class="inline-flex items-center gap-2 bg-brand-yellow px-4 py-2 rounded-full border-3 border-brand-dark shadow-neo transform -rotate-2 hover:rotate-0 transition-transform cursor-default">
                     <span class="text-lg">🎮</span>
                     <span class="font-bold text-xs tracking-wide">100% GRÁTIS & OPEN SOURCE</span>
                 </div>
 
                 <h1 class="font-display text-6xl md:text-7xl font-black leading-[0.9] tracking-tight">
-                    Domine seus <br/>
+                    Domine seus <br />
                     <span class="text-brand-orange relative">
                         hábitos
-                        <svg class="absolute w-full h-4 -bottom-2 left-0 text-brand-dark" viewBox="0 0 100 10" preserveAspectRatio="none">
+                        <svg class="absolute w-full h-4 -bottom-2 left-0 text-brand-dark" viewBox="0 0 100 10"
+                            preserveAspectRatio="none">
                             <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="3" fill="none" />
                         </svg>
                     </span>
-                    <br/> como um jogo.
+                    <br /> como um jogo.
                 </h1>
 
                 <p class="text-xl text-gray-700 font-medium max-w-lg leading-relaxed">
-                    Crie streaks, suba de nível e organize sua vida. 
+                    Crie streaks, suba de nível e organize sua vida.
                     Sem anúncios, sem login obrigatório e todos os dados ficam no seu navegador.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                    <a href="./pages/app.html" class="bg-brand-dark text-white text-center font-bold text-lg px-8 py-4 rounded-xl shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-3">
+                    <a href="./pages/app.html"
+                        class="bg-brand-dark text-white text-center font-bold text-lg px-8 py-4 rounded-xl shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-3">
                         COMEÇAR AGORA
                         <span>⚡</span>
                     </a>
-                    <a href="https://github.com/debuglucas" target="_blank" class="bg-white text-brand-dark text-center font-bold text-lg px-8 py-4 rounded-xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-2">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        GitHub
+                    <a href="#opensource"
+                        class="bg-white text-brand-dark text-center font-bold text-lg px-8 py-4 rounded-xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-github-logo text-xl"></i>
+                        Ver Código
                     </a>
                 </div>
             </div>
 
             <div class="relative hidden lg:block perspective-1000">
-                <div class="bg-brand-surface border-3 border-brand-dark rounded-3xl p-6 shadow-[12px_12px_0px_0px_#111827] rotate-hover transform rotate-2">
-                    
+                <div
+                    class="bg-brand-surface border-3 border-brand-dark rounded-3xl p-6 shadow-[12px_12px_0px_0px_#111827] rotate-hover transform rotate-2">
+
                     <div class="flex justify-between items-center mb-6 border-b-2 border-dashed border-gray-200 pb-4">
                         <div class="flex gap-2">
                             <div class="w-3 h-3 rounded-full bg-red-500 border border-brand-dark"></div>
@@ -89,7 +102,8 @@
 
                     <div class="space-y-3">
                         <div class="flex items-center gap-4 p-3 bg-brand-light border-2 border-brand-dark rounded-xl">
-                            <div class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-lg text-lg">🏃‍♂️</div>
+                            <div class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-lg text-lg">🏃‍♂️
+                            </div>
                             <div class="flex-1">
                                 <h4 class="font-bold text-sm">Corrida Matinal</h4>
                                 <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1">
@@ -99,8 +113,10 @@
                             <span class="text-green-600 font-bold text-xl">✓</span>
                         </div>
 
-                        <div class="flex items-center gap-4 p-3 bg-white border-2 border-brand-dark rounded-xl shadow-sm">
-                            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-lg text-lg">💧</div>
+                        <div
+                            class="flex items-center gap-4 p-3 bg-white border-2 border-brand-dark rounded-xl shadow-sm">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-lg text-lg">💧
+                            </div>
                             <div class="flex-1">
                                 <h4 class="font-bold text-sm">Beber 2L Água</h4>
                                 <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1">
@@ -110,8 +126,10 @@
                             <span class="text-xs font-bold text-gray-500">3/5</span>
                         </div>
 
-                        <div class="flex items-center gap-4 p-3 bg-brand-light border-2 border-brand-dark rounded-xl opacity-60">
-                            <div class="w-8 h-8 flex items-center justify-center bg-purple-100 rounded-lg text-lg">📚</div>
+                        <div
+                            class="flex items-center gap-4 p-3 bg-brand-light border-2 border-brand-dark rounded-xl opacity-60">
+                            <div class="w-8 h-8 flex items-center justify-center bg-purple-100 rounded-lg text-lg">📚
+                            </div>
                             <div class="flex-1">
                                 <h4 class="font-bold text-sm">Ler 10 págs</h4>
                                 <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1"></div>
@@ -120,7 +138,8 @@
                         </div>
                     </div>
 
-                    <div class="absolute -bottom-6 -right-6 bg-brand-purple text-white px-4 py-2 rounded-lg border-3 border-brand-dark shadow-neo transform -rotate-6 animate-bounce">
+                    <div
+                        class="absolute -bottom-6 -right-6 bg-brand-purple text-white px-4 py-2 rounded-lg border-3 border-brand-dark shadow-neo transform -rotate-6 animate-bounce">
                         <span class="font-bold">🔥 47 Dias Streak!</span>
                     </div>
 
@@ -132,9 +151,10 @@
 
     <section id="features" class="py-24 bg-white border-t-3 border-brand-dark relative">
         <div class="max-w-7xl mx-auto px-6">
-            
+
             <div class="text-center mb-16">
-                <span class="bg-brand-purple text-white px-4 py-1 rounded-full text-sm font-bold border-2 border-brand-dark shadow-neo-sm mb-4 inline-block">
+                <span
+                    class="bg-brand-purple text-white px-4 py-1 rounded-full text-sm font-bold border-2 border-brand-dark shadow-neo-sm mb-4 inline-block">
                     POR QUE USAR?
                 </span>
                 <h2 class="font-display text-4xl md:text-5xl font-black mb-4">
@@ -147,19 +167,24 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
-                
-                <div class="md:col-span-2 bg-blue-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
+
+                <div
+                    class="md:col-span-2 bg-blue-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
+                    <div
+                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
                         🛠️
                     </div>
                     <h3 class="font-display text-2xl font-bold mb-2">Configuração Total</h3>
                     <p class="text-gray-700">
-                        Diário, 3x na semana ou dias específicos? Você manda. Configure metas numéricas (ex: 8 copos de água) ou apenas check.
+                        Diário, 3x na semana ou dias específicos? Você manda. Configure metas numéricas (ex: 8 copos de
+                        água) ou apenas check.
                     </p>
                 </div>
 
-                <div class="bg-green-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
+                <div
+                    class="bg-green-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
+                    <div
+                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
                         🔒
                     </div>
                     <h3 class="font-display text-2xl font-bold mb-2">100% Privado</h3>
@@ -168,8 +193,10 @@
                     </p>
                 </div>
 
-                <div class="bg-purple-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
+                <div
+                    class="bg-purple-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
+                    <div
+                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
                         🔥
                     </div>
                     <h3 class="font-display text-2xl font-bold mb-2">Streaks</h3>
@@ -178,24 +205,177 @@
                     </p>
                 </div>
 
-                <div class="md:col-span-2 bg-brand-yellow/20 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group relative overflow-hidden">
-                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-                        <div class="flex-1">
-                            <h3 class="font-display text-2xl font-bold mb-2">Código Aberto</h3>
-                            <p class="text-gray-700 mb-4">
-                                Transparência total. Quer ver como funciona? Quer contribuir? O código é seu.
-                            </p>
-                            <a href="https://github.com/debugglucas" target="_blank" class="inline-flex items-center gap-2 font-bold hover:underline decoration-2 underline-offset-4">
-                                Ver no GitHub →
-                            </a>
-                        </div>
-                        <div class="text-6xl group-hover:scale-110 transition-transform">🐙</div>
+                <div
+                    class="md:col-span-2 bg-brand-yellow/20 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
+                    <div
+                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
+                        ⚡
                     </div>
+                    <h3 class="font-display text-2xl font-bold mb-2">Modo Foco</h3>
+                    <p class="text-gray-700">
+                        Timer Pomodoro integrado para você focar no que importa.
+                    </p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    </body>
+    <section class="py-20 bg-brand-dark text-white border-y-4 border-brand-dark">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="font-display text-4xl md:text-5xl font-black mb-6 leading-tight">
+                    Menos fricção,<br>
+                    <span
+                        class="text-brand-orange underline decoration-brand-yellow decoration-4 underline-offset-4">mais
+                        consistência.</span>
+                </h2>
+                <p class="text-lg text-gray-300 mb-8 font-medium">
+                    O HabitFlow foi desenhado sob a filosofia do <strong>Minimalismo Cognitivo</strong>. Não queremos
+                    que você gaste tempo gerenciando o app, queremos que você gaste tempo mudando sua vida.
+                </p>
+                <div class="flex gap-4">
+                    <div
+                        class="bg-white/10 p-4 rounded-xl border-2 border-white/20 hover:bg-white/20 transition-colors">
+                        <span class="block text-2xl mb-1">🎯</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-yellow">Foco Total</span>
+                    </div>
+                    <div
+                        class="bg-white/10 p-4 rounded-xl border-2 border-white/20 hover:bg-white/20 transition-colors">
+                        <span class="block text-2xl mb-1">🧠</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-yellow">Sem Distração</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div
+                    class="bg-white text-brand-dark p-8 rounded-3xl border-4 border-brand-dark shadow-[12px_12px_0px_0px_rgba(255,255,255,0.2)] rotate-2">
+                    <p class="font-display text-2xl font-black italic">"A repetição cria o mestre, o HabitFlow cria a
+                        repetição."</p>
+                    <div class="flex items-center gap-3 mt-4 pt-4 border-t-2 border-gray-100">
+                        <div
+                            class="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center text-white font-bold">
+                            L</div>
+                        <div>
+                            <p class="font-bold text-sm">Lucas Dev</p>
+                            <p class="text-xs text-gray-500">Criador do HabitFlow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="opensource" class="py-24 bg-brand-light">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div
+                class="inline-block bg-brand-yellow px-4 py-1 border-2 border-brand-dark rounded-full font-bold text-xs uppercase tracking-widest mb-6 shadow-neo-sm">
+                Comunidade
+            </div>
+            <h2 class="font-display text-5xl font-black mb-8">Construído por devs, para devs.</h2>
+            <p class="text-xl text-gray-600 mb-10 font-medium leading-relaxed">
+                O HabitFlow é 100% open source. Acreditamos que ferramentas de evolução pessoal devem ser acessíveis.
+                Quer adicionar uma funcionalidade? O repositório é seu. Gostou do projeto? Pague um café!
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="https://github.com/debugglucas" target="_blank"
+                    class="inline-flex items-center justify-center gap-3 bg-white border-3 border-brand-dark px-8 py-5 rounded-2xl font-display text-xl font-black shadow-neo hover:shadow-neo-pressed hover:translate-x-1 hover:translate-y-1 transition-all">
+                    <i class="ph-bold ph-github-logo text-3xl"></i>
+                    CONTRIBUIR NO GITHUB
+                </a>
+
+                <a href="#"
+                    class="inline-flex items-center justify-center gap-3 bg-[#FF90E8] border-3 border-brand-dark px-8 py-5 rounded-2xl font-display text-xl font-black shadow-neo hover:shadow-neo-pressed hover:translate-x-1 hover:translate-y-1 transition-all text-brand-dark">
+                    <i class="ph-fill ph-coffee text-3xl"></i>
+                    APOIAR O PROJETO
+                </a>
+            </div>
+
+            <div
+                class="mt-16 flex justify-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+                <span class="font-bold flex items-center gap-2"><i class="ph-bold ph-file-html"></i> HTML5</span>
+                <span class="font-bold flex items-center gap-2"><i class="ph-bold ph-paint-brush"></i> Tailwind</span>
+                <span class="font-bold flex items-center gap-2"><i class="ph-bold ph-code"></i> JavaScript</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white border-t-3 border-brand-dark overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-xl">
+                    <h2 class="font-display text-5xl font-black mb-4 italic">Roadmap 2026</h2>
+                    <p class="text-gray-600 font-medium text-lg">
+                        O HabitFlow está apenas começando. Confira o que estamos buildando para tornar este o app
+                        definitivo de evolução pessoal.
+                    </p>
+                </div>
+                <div class="hidden md:block text-8xl opacity-10 font-black uppercase tracking-tighter rotate-12">
+                    Future
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="p-6 bg-brand-light border-3 border-brand-dark rounded-2xl relative shadow-neo-sm">
+                    <div
+                        class="absolute -top-3 -right-3 bg-green-500 text-white w-8 h-8 rounded-full border-2 border-brand-dark flex items-center justify-center shadow-sm">
+                        <i class="ph-bold ph-check"></i>
+                    </div>
+                    <span class="text-xs font-black text-brand-purple uppercase tracking-widest">Fase 01</span>
+                    <h4 class="font-bold text-xl mt-2">Core Engine</h4>
+                    <p class="text-sm text-gray-500 mt-2 italic">Sistema de hábitos, Timer Pomodoro e LocalStorage.</p>
+                </div>
+
+                <div
+                    class="p-6 bg-brand-yellow/10 border-3 border-brand-dark rounded-2xl relative shadow-neo ring-4 ring-brand-yellow/30">
+                    <div
+                        class="absolute -top-3 -right-3 bg-brand-orange text-white px-2 py-1 rounded-lg border-2 border-brand-dark text-[10px] font-black animate-pulse">
+                        BUILDING
+                    </div>
+                    <span class="text-xs font-black text-brand-purple uppercase tracking-widest">Fase 02</span>
+                    <h4 class="font-bold text-xl mt-2">Gamification</h4>
+                    <p class="text-sm text-gray-500 mt-2">Sistema de Níveis (XP), Badges e conquistas visuais.</p>
+                </div>
+
+                <div class="p-6 bg-gray-50 border-3 border-gray-200 rounded-2xl opacity-60">
+                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest">Fase 03</span>
+                    <h4 class="font-bold text-xl mt-2 text-gray-400">Insights 📊</h4>
+                    <p class="text-sm text-gray-400 mt-2">Gráficos de performance semanal e histórico avançado.</p>
+                </div>
+
+                <div class="p-6 bg-gray-50 border-3 border-gray-200 rounded-2xl opacity-60">
+                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest">Fase 04</span>
+                    <h4 class="font-bold text-xl mt-2 text-gray-400">Sync ☁️</h4>
+                    <p class="text-sm text-gray-400 mt-2">Sincronização opcional em nuvem e modo multi-dispositivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t-3 border-brand-dark bg-white">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center">
+                <span class="font-display text-xl font-bold italic tracking-tighter">HabitFlow</span>
+            </div>
+            <p class="text-gray-500 font-bold text-sm text-center md:text-left">
+                © 2026 HabitFlow. Open Source License.<br>
+                Desenvolvido com 🧡 por <span class="text-brand-orange underline">Lucas Dev</span>.
+            </p>
+            <div class="flex gap-6">
+                <a href="https://www.instagram.com/debuglucas/" target="_blank"
+                    class="text-brand-dark hover:text-brand-orange transition-colors hover:scale-110 transform"><i
+                        class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="#"
+                    class="text-brand-dark hover:text-brand-orange transition-colors hover:scale-110 transform"><i
+                        class="ph-fill ph-twitter-logo text-2xl"></i></a>
+                <a href="https://github.com/debugglucas" target="_blank"
+                    class="text-brand-dark hover:text-brand-orange transition-colors hover:scale-110 transform"><i
+                        class="ph-fill ph-github-logo text-2xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
 </html>

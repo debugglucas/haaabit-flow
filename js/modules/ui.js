@@ -2,7 +2,6 @@ import { getHabitProgress, isHabitCompleted } from './habits.js';
 import { getTodayDate } from './utils.js';
 import { getLevelTitle } from './gamification.js'; 
 
-const habitsContainer = document.getElementById('habits-list');
 let runningHabitId = null;
 
 export function setRunningHabitId(id) {
@@ -40,29 +39,23 @@ export function showToast(message, type = 'success') {
 
 // --- ATUALIZA SIDEBAR ---
 export function updateSidebarProfile(profile) {
-    // Selecionando pelos IDs novos (Zero chance de erro!)
+    // Seleção segura via IDs
     const nameEl = document.getElementById('user-name');
     const levelTextEl = document.getElementById('user-level-text');
     const avatarEl = document.getElementById('user-avatar');
     const xpTextEl = document.getElementById('user-xp-text');
     const xpBarEl = document.getElementById('user-xp-bar');
 
-    // Atualiza Textos Básicos
     if (nameEl) nameEl.innerText = profile.name;
     if (avatarEl) avatarEl.innerText = profile.name.charAt(0).toUpperCase();
 
-    // Atualiza Nível e Título
     if (levelTextEl) {
         const title = getLevelTitle(profile.level);
         levelTextEl.innerHTML = `Nível ${profile.level} · <span class="text-brand-orange">${title}</span>`;
     }
 
-    // Atualiza a Barra de XP
     if (xpTextEl && xpBarEl) {
-        // Texto: 150 / 300
         xpTextEl.innerText = `${profile.currentXp} / ${profile.nextLevelXp}`;
-        
-        // Cálculo da Porcentagem da Barra
         const percentage = Math.min(100, Math.max(0, (profile.currentXp / profile.nextLevelXp) * 100));
         xpBarEl.style.width = `${percentage}%`;
     }
@@ -70,7 +63,6 @@ export function updateSidebarProfile(profile) {
 
 // --- MODAL DE LEVEL UP ---
 export function showLevelUpModal(level) {
-    // Confetes
     const duration = 3000;
     const end = Date.now() + duration;
     (function frame() {
@@ -81,7 +73,6 @@ export function showLevelUpModal(level) {
         if (Date.now() < end) requestAnimationFrame(frame);
     }());
 
-    // Toast Gigante
     const container = document.getElementById('toast-container');
     if (!container) return;
 
@@ -102,12 +93,13 @@ export function showLevelUpModal(level) {
 
 // --- BARRA DE PROGRESSO GLOBAL ---
 function updateGlobalProgress(visibleHabits, today) {
-    // Busca a barra colorida
-    const progressBar = document.querySelector('.bg-brand-purple.w-0') || document.querySelector('.bg-brand-purple.h-full');
-    
-    // CORREÇÃO AQUI: Seletor mais genérico e seguro para o texto
-    // Procura qualquer span que tenha a classe de cor roxa dentro do main
-    const progressText = document.querySelector('main .text-brand-purple'); 
+    const dashboardView = document.getElementById('view-dashboard');
+    if (!dashboardView) return;
+
+    // Seletor mais robusto para a barra de progresso
+    const progressBar = dashboardView.querySelector('.bg-brand-purple.h-full') || dashboardView.querySelector('.bg-brand-purple.w-0');
+    // Seletor seguro para o texto
+    const progressText = dashboardView.querySelector('.text-brand-purple');
 
     if (!progressBar || !progressText) return;
 
@@ -127,7 +119,6 @@ function updateGlobalProgress(visibleHabits, today) {
     progressBar.style.width = `${percentage}%`;
     progressText.innerText = `${percentage}%`;
     
-    // Confete ao completar 100%
     const celebrationKey = `habitflow_celebrated_${today}`;
     if (percentage === 100) {
         progressText.innerText = '100% 🎉';
@@ -141,10 +132,15 @@ function updateGlobalProgress(visibleHabits, today) {
     }
 }
 
-// --- RENDERIZAR LISTA ---
+// --- RENDERIZAR LISTA (AGORA COM ABAS) ---
 export function renderHabitList(habits, activeSeconds = 0) {
-    if (!habitsContainer) return;
-    habitsContainer.innerHTML = '';
+    const containerPending = document.getElementById('habits-list-pending');
+    const containerCompleted = document.getElementById('habits-list-completed');
+    
+    if (!containerPending || !containerCompleted) return;
+    
+    containerPending.innerHTML = '';
+    containerCompleted.innerHTML = '';
     
     const todayIndex = new Date().getDay();
     const todayDate = getTodayDate();
@@ -156,17 +152,18 @@ export function renderHabitList(habits, activeSeconds = 0) {
 
     updateGlobalProgress(visibleHabits, todayDate);
 
-    // Empty State
+    // Empty State (Se não houver hábitos no total)
     if (visibleHabits.length === 0) {
-        habitsContainer.innerHTML = `
+        containerPending.innerHTML = `
             <div class="flex flex-col items-center justify-center py-16 border-3 border-dashed border-gray-300 rounded-3xl bg-gray-50/50">
                 <div class="text-6xl mb-4 animate-bounce">🌱</div>
                 <h3 class="font-display text-2xl font-bold text-gray-400 mb-2">Comece sua jornada</h3>
-                <p class="text-gray-400 font-medium text-center max-w-xs mb-6">Você ainda não tem hábitos para hoje.</p>
-                <div class="text-brand-orange text-2xl rotate-180 animate-pulse">⬆</div>
+                <p class="text-gray-400 font-medium text-center max-w-xs">Sem hábitos para hoje.</p>
             </div>`;
         return;
     }
+
+    let hasPendingHabits = false;
 
     visibleHabits.forEach(habit => {
         const progress = getHabitProgress(habit, todayDate);
@@ -188,9 +185,9 @@ export function renderHabitList(habits, activeSeconds = 0) {
         }
 
         if (isDone) {
-            cardClass = "bg-green-50 border-green-200 opacity-60 grayscale-[0.5]";
-            btnIcon = '<i class="ph-bold ph-check"></i>';
-            btnClass = "bg-green-500 text-white shadow-none cursor-default border-green-600";
+            cardClass = "bg-gray-50 border-gray-300 opacity-80";
+            btnIcon = '<i class="ph-bold ph-arrow-u-up-left"></i>'; // Ícone de voltar
+            btnClass = "bg-white text-gray-400 hover:text-brand-orange hover:border-brand-orange shadow-none";
         } else if (isRunning) {
             cardClass = "bg-blue-50 border-blue-500 shadow-neo translate-x-[2px] translate-y-[2px]";
             btnIcon = '<i class="ph-fill ph-pause"></i>';
@@ -205,7 +202,7 @@ export function renderHabitList(habits, activeSeconds = 0) {
                 <div class="w-14 h-14 flex items-center justify-center bg-gray-50 border-2 border-brand-dark rounded-xl text-3xl shadow-sm">${habit.icon}</div>
                 <div class="flex-1 min-w-0"> 
                     <div class="flex justify-between items-center mb-1">
-                        <h4 class="font-display font-bold text-lg leading-tight truncate pr-2 ${isDone ? 'line-through text-gray-400' : 'text-brand-dark'}">${habit.title}</h4>
+                        <h4 class="font-display font-bold text-lg leading-tight truncate pr-2 ${isDone ? 'line-through text-gray-500' : 'text-brand-dark'}">${habit.title}</h4>
                         ${isRunning ? '<span class="text-[10px] font-black bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full border border-blue-200 animate-pulse tracking-wide">FOCANDO</span>' : ''}
                     </div>
                     <div class="w-full bg-gray-100 h-3 rounded-full border-2 border-brand-dark/10 overflow-hidden">
@@ -213,10 +210,42 @@ export function renderHabitList(habits, activeSeconds = 0) {
                     </div>
                     <div class="text-xs font-bold text-gray-400 mt-1 text-right">${displayProgressText}</div>
                 </div>
-                <button class="action-btn w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl border-2 border-brand-dark font-bold transition-all text-xl ${btnClass}">${btnIcon}</button>
+                <button class="action-btn w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl border-2 border-brand-dark font-bold transition-all text-xl ${btnClass}" title="${isDone ? 'Voltar para Dashboard' : 'Completar'}">
+                    ${btnIcon}
+                </button>
             </div>`;
-        habitsContainer.insertAdjacentHTML('beforeend', html);
+
+        if (isDone) {
+            containerCompleted.insertAdjacentHTML('afterbegin', html);
+        } else {
+            hasPendingHabits = true;
+            containerPending.insertAdjacentHTML('beforeend', html);
+        }
     });
+
+    // Se todos os hábitos estiverem feitos (Empty State no Dashboard)
+    if (!hasPendingHabits && visibleHabits.length > 0) {
+        containerPending.innerHTML = `
+            <div class="flex flex-col items-center justify-center py-12 text-center animate-modal-enter">
+                <div class="text-8xl mb-4 animate-bounce">🏆</div>
+                <h3 class="font-display text-3xl font-black text-brand-dark mb-2">Dia Dominado!</h3>
+                <p class="text-gray-500 font-medium mb-6">Você completou todas as missões de hoje.</p>
+                <button onclick="document.getElementById('nav-history').click()" class="text-brand-purple font-bold underline hover:text-brand-orange">
+                    Ver Histórico
+                </button>
+            </div>
+        `;
+    }
+
+    // Se não tiver completados (Empty State no Histórico)
+    if (containerCompleted.children.length === 0) {
+        containerCompleted.innerHTML = `
+            <div class="text-center py-10 opacity-50">
+                <div class="text-4xl mb-2">🕰️</div>
+                <p class="font-bold text-gray-400">Nenhum item concluído hoje.</p>
+            </div>
+        `;
+    }
 }
 
 export function toggleModal(show) {
@@ -227,4 +256,34 @@ export function toggleModal(show) {
 export function resetForm() {
     const form = document.getElementById('create-habit-form');
     if (form) form.reset();
+}
+
+// --- NAVEGAÇÃO ENTRE ABAS ---
+export function setupNavigation() {
+    const btnDash = document.getElementById('nav-dashboard');
+    const btnHist = document.getElementById('nav-history');
+    const viewDash = document.getElementById('view-dashboard');
+    const viewHist = document.getElementById('view-history');
+
+    const activeStyle = "bg-brand-orange text-white border-brand-dark shadow-neo-sm";
+    const inactiveStyle = "bg-transparent text-gray-500 border-transparent hover:bg-gray-100 hover:border-brand-dark";
+
+    function showDashboard() {
+        viewDash.classList.remove('hidden');
+        viewHist.classList.add('hidden');
+        
+        btnDash.className = btnDash.className.replace(inactiveStyle, "").replace("bg-transparent", "") + " " + activeStyle;
+        btnHist.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-medium border-2 text-left " + inactiveStyle;
+    }
+
+    function showHistory() {
+        viewDash.classList.add('hidden');
+        viewHist.classList.remove('hidden');
+
+        btnHist.className = btnHist.className.replace(inactiveStyle, "").replace("bg-transparent", "") + " " + activeStyle;
+        btnDash.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-medium border-2 text-left " + inactiveStyle;
+    }
+
+    if(btnDash) btnDash.addEventListener('click', showDashboard);
+    if(btnHist) btnHist.addEventListener('click', showHistory);
 }

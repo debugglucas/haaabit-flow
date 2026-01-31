@@ -1,42 +1,36 @@
 // js/modules/habits.js
-import { generateID, getTodayDate } from './utils.js';
 
-// Fábrica: Cria um novo objeto de hábito (Agora Turbinado!)
-export function createHabitModel(title, icon, target, type = 'routine', frequency = []) {
+export function createHabitModel(title, icon, target, type, frequency = null) {
     return {
-        id: generateID(),
-        title: title,
-        icon: icon,
-        createdAt: getTodayDate(),
-        
-        // Configurações Novas
-        type: type, // 'routine' | 'flexible' | 'timer'
-        target: parseInt(target), // Meta (vezes ou minutos)
-        frequency: frequency, // Array de dias: [1, 3, 5] (Seg, Qua, Sex) ou null
-        
-        history: {},
-        streak: 0,
-        bestStreak: 0
+        id: crypto.randomUUID(),
+        title,
+        icon,
+        target,
+        type, // 'routine', 'flexible', 'timer'
+        frequency, // array de dias [0, 1, 2...] ou null
+        progress: {}, // Objeto para guardar progresso por data: { "2023-10-27": 10 }
+        createdAt: new Date().toISOString()
     };
 }
 
-// Verifica se o hábito está concluído
-export function isHabitCompleted(habit, date) {
-    const progress = habit.history[date] || 0;
-    return progress >= habit.target;
-}
-
-// Aumenta o progresso
-export function incrementHabitProgress(habit, date) {
-    const current = habit.history[date] || 0;
-    
-    // Se for Timer, aumenta de 5 em 5 minutos (exemplo) ou 1 em 1
-    // Por enquanto vamos manter +1 para tudo para simplificar
-    if (current >= habit.target) return;
-    habit.history[date] = current + 1;
-}
-
-// Retorna o progresso atual
 export function getHabitProgress(habit, date) {
-    return habit.history[date] || 0;
+    // Retorna 0 se não tiver progresso naquele dia
+    if (!habit.progress) return 0;
+    return habit.progress[date] || 0;
+}
+
+export function incrementHabitProgress(habit, date, amount = 1) {
+    if (!habit.progress) habit.progress = {};
+    
+    const current = habit.progress[date] || 0;
+    habit.progress[date] = current + amount;
+}
+
+export function isHabitCompleted(habit, date) {
+    // 1. Verifica se tem alguma flag antiga de "completed" (Compatibilidade)
+    if (habit.completed === true) return true;
+    
+    // 2. Verifica se atingiu a meta numérica
+    const current = getHabitProgress(habit, date);
+    return current >= habit.target;
 }

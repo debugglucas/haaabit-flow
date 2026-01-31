@@ -15,7 +15,6 @@
 <body class="bg-brand-light text-brand-dark h-screen flex overflow-hidden">
 
     <aside class="w-64 bg-white border-r-3 border-brand-dark flex flex-col hidden md:flex z-20">
-        
         <div class="h-20 flex items-center px-6 border-b-3 border-brand-dark bg-brand-yellow/10">
             <a href="../index.html" class="flex items-center gap-2 hover:opacity-75 transition-opacity">
                 <span class="text-2xl">✅</span>
@@ -24,15 +23,15 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-2">
-            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-brand-orange text-white rounded-xl border-2 border-brand-dark shadow-neo-sm font-bold active:scale-95 transition-transform">
+            <button id="nav-dashboard" class="w-full flex items-center gap-3 px-4 py-3 bg-brand-orange text-white rounded-xl border-2 border-brand-dark shadow-neo-sm font-bold active:scale-95 transition-transform text-left">
                 <i class="ph-bold ph-check-square text-xl"></i>
                 Meus Hábitos
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors font-medium border-2 border-transparent hover:border-brand-dark">
-                <i class="ph-bold ph-calendar-blank text-xl"></i>
-                Histórico
-                <span class="ml-auto text-[10px] bg-gray-200 px-2 py-0.5 rounded-full text-gray-600 font-bold">EM BREVE</span>
-            </a>
+            </button>
+            
+            <button id="nav-history" class="w-full flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors font-medium border-2 border-transparent hover:border-brand-dark text-left">
+                <i class="ph-bold ph-clock-counter-clockwise text-xl"></i>
+                Concluídos
+            </button>
         </nav>
 
         <div class="p-5 border-t-3 border-brand-dark bg-gray-50">
@@ -56,23 +55,25 @@
                 </div>
             </div>
         </div>
+
     </aside>
 
-    <main class="flex-1 overflow-y-auto relative">
+    <main class="flex-1 overflow-y-auto relative bg-brand-light">
         <div class="md:hidden h-16 bg-white border-b-3 border-brand-dark flex items-center justify-between px-4 sticky top-0 z-10">
-            <span class="text-xl font-bold font-display">HabitFlow</span>
+            <span class="text-xl font-bold font-display italic">HabitFlow</span>
             <button class="p-2 border-2 border-brand-dark rounded-lg active:bg-gray-100">
                 <i class="ph-bold ph-list text-xl"></i>
             </button>
         </div>
 
         <div class="max-w-4xl mx-auto px-6 py-10">
+            
             <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
                     <h1 class="font-display text-4xl font-black mb-1">
                         Hoje, <span id="current-date" class="text-brand-orange">...</span>
                     </h1>
-                    <p class="text-gray-600 font-medium">Vamos evoluir? 🚀</p>
+                    <p class="text-gray-600 font-medium">Foco na missão! 🚀</p>
                 </div>
                 <button id="btn-open-modal" class="group flex items-center gap-2 bg-brand-dark text-white px-5 py-3 rounded-xl border-3 border-transparent shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-white hover:text-brand-dark hover:border-brand-dark active:scale-95 transition-all duration-200">
                     <i class="ph-bold ph-plus text-lg"></i>
@@ -80,22 +81,31 @@
                 </button>
             </header>
 
-            <div class="bg-white border-3 border-brand-dark rounded-2xl p-6 shadow-neo mb-10 hover:shadow-neo-pressed transition-all duration-300">
-                <div class="flex justify-between items-end mb-2">
-                    <span class="font-bold text-sm text-gray-500 tracking-wider">PROGRESSO DIÁRIO</span>
-                    <span class="font-display text-2xl font-black text-brand-purple">0%</span>
+            <div id="view-dashboard" class="animate-modal-enter">
+                <div class="bg-white border-3 border-brand-dark rounded-2xl p-6 shadow-neo mb-10">
+                    <div class="flex justify-between items-end mb-2">
+                        <span class="font-bold text-sm text-gray-500 tracking-wider">PROGRESSO DIÁRIO</span>
+                        <span class="font-display text-2xl font-black text-brand-purple">0%</span>
+                    </div>
+                    <div class="w-full h-4 bg-gray-200 rounded-full border-2 border-brand-dark overflow-hidden">
+                        <div class="bg-brand-purple h-full w-0 transition-all duration-500"></div>
+                    </div>
                 </div>
-                <div class="w-full h-4 bg-gray-200 rounded-full border-2 border-brand-dark overflow-hidden">
-                    <div class="h-full bg-brand-purple w-0 transition-all duration-1000 ease-out"></div>
-                </div>
+
+                <div id="habits-list-pending" class="space-y-4">
+                    </div>
             </div>
 
-            <div id="habits-list" class="space-y-4">
-                <div class="text-center py-16 opacity-50">
-                    <div class="text-6xl mb-4 animate-bounce">💤</div>
-                    <h3 class="font-display text-2xl font-bold text-gray-400">Carregando...</h3>
+            <div id="view-history" class="hidden animate-modal-enter">
+                <div class="bg-green-100 border-3 border-brand-dark rounded-2xl p-6 mb-8 text-center">
+                    <h3 class="font-display text-2xl font-bold text-green-800">Missões Cumpridas ✅</h3>
+                    <p class="text-green-700 font-medium text-sm">Estes hábitos já geraram XP hoje.</p>
                 </div>
+
+                <div id="habits-list-completed" class="space-y-4 opacity-75">
+                    </div>
             </div>
+
         </div>
     </main>
 

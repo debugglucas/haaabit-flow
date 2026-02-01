@@ -10,6 +10,11 @@ body {
     background-color: #FAFAFA;
     color: #111827;
     overflow-x: hidden;
+
+    box-sizing: border-box !important;
+    padding: 0px !important;
+    margin: 0px !important;
+
 }
 
 /* Utilitário para centralizar coisas rápido (opcional, mas ajuda) */

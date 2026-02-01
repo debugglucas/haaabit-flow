@@ -1,381 +1,285 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HabitFlow - Seus hábitos, sem bullshit.</title>
+    <title>HabitFlow - Domine sua Rotina</title>
 
-    <link rel="stylesheet" href="./css/global.css">
-    <link rel="stylesheet" href="./css/landing.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./js/tailwind.config.js"></script>
+    <script src="js/tailwind.config.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/animation.css">
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+    <script type="module" src="js/modules/client.js"></script>
 </head>
 
-<body class="bg-brand-light text-brand-dark overflow-x-hidden selection:bg-brand-orange selection:text-white">
+<body class="bg-brand-light text-brand-dark overflow-x-hidden font-sans selection:bg-brand-orange selection:text-white">
 
-    <header class="sticky top-0 z-50 bg-brand-light/90 backdrop-blur-md">
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <header id="navbar" class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md ">
         <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-
-            <div class="flex items-center gap-3 select-none group cursor-pointer">
-                <div>
-                    <h1 class="font-display text-2xl font-black leading-none">HabitFlow</h1>
-                    <span class="text-[10px] font-bold tracking-widest text-gray-500">BY DEBUGLUCAS</span>
-                </div>
+            <div class="flex items-center gap-2 group cursor-pointer hover-trigger" onclick="lenis.scrollTo('top')">
+                <div class="text-3xl animate-bounce">🔥</div>
+                <h1 class="font-display text-2xl font-black italic tracking-tighter group-hover:text-brand-orange transition-colors">HabitFlow</h1>
             </div>
 
-            <div class="hidden md:flex md:ms-auto me-3 gap-8">
-                <a href="#features"
-                    class="font-bold hover:text-brand-orange hover:underline decoration-2 underline-offset-4 transition-all">Como
-                    funciona</a>
-                <a href="#opensource"
-                    class="font-bold hover:text-brand-orange hover:underline decoration-2 underline-offset-4 transition-all">Open
-                    Source</a>
+            <div class="hidden md:flex md:ms-auto me-8 gap-8">
+                <a href="#how-it-works" class="nav-link font-bold hover:text-brand-orange hover:-translate-y-1 transition-transform inline-block hover-trigger" onclick="smoothScrollTo(event, '#how-it-works')">Como funciona</a>
+                <a href="#features" class="nav-link font-bold hover:text-brand-orange hover:-translate-y-1 transition-transform inline-block hover-trigger" onclick="smoothScrollTo(event, '#features')">Benefícios</a>
+                <a href="#opensource" class="nav-link font-bold hover:text-brand-orange hover:-translate-y-1 transition-transform inline-block hover-trigger" onclick="smoothScrollTo(event, '#opensource')">Open Source</a>
             </div>
 
-            <a href="./pages/app.html"
-                class="bg-brand-orange text-white font-bold px-6 py-2 rounded-xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                Entrar no App 🚀
+            <a href="pages/dashboard.html" id="header-cta" class="hover-trigger bg-brand-orange text-white font-bold px-6 py-2 rounded-xl border-2 border-transparent shadow-neo hover:bg-brand-dark hover:border-brand-dark hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                Entrar 🚀
             </a>
         </nav>
     </header>
 
-    <main class="relative pt-20 pb-32 overflow-hidden">
+    <main class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-light bg-grid-infinite" data-header="light">
+        <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-gradient-to-tr from-brand-orange/30 to-brand-yellow/30 rounded-full blur-[100px] animate-float-slow opacity-60 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-brand-purple/20 to-blue-400/20 rounded-full blur-[120px] animate-float-slow opacity-60 pointer-events-none" style="animation-delay: 2s;"></div>
 
-        <div class="blob w-96 h-96 bg-brand-orange/30 top-0 right-0 animate-float"></div>
-        <div class="blob w-80 h-80 bg-brand-purple/30 bottom-0 left-0 animate-float" style="animation-delay: 2s;"></div>
-
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-
-            <div class="space-y-8 relative z-10">
-
-                <div
-                    class="inline-flex items-center gap-2 bg-brand-yellow px-4 py-2 rounded-full border-3 border-brand-dark shadow-neo transform -rotate-2 hover:rotate-0 transition-transform cursor-default">
-                    <span class="text-lg">🎮</span>
-                    <span class="font-bold text-xs tracking-wide">100% GRÁTIS & OPEN SOURCE</span>
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center w-full relative z-10">
+            <div class="space-y-8">
+                <div data-aos="fade-right" class="inline-flex items-center gap-3 bg-white px-5 py-2 rounded-full border-3 border-brand-dark shadow-neo transform -rotate-1 hover:rotate-0 transition-transform cursor-default">
+                    <span class="text-xl animate-pulse">🎮</span>
+                    <span class="font-black text-xs tracking-widest uppercase text-brand-purple">Gamifique sua vida</span>
                 </div>
-
-                <h1 class="font-display text-6xl md:text-7xl font-black leading-[0.9] tracking-tight">
-                    Domine seus <br />
-                    <span class="text-brand-orange relative">
-                        hábitos
-                        <svg class="absolute w-full h-4 -bottom-2 left-0 text-brand-dark" viewBox="0 0 100 10"
-                            preserveAspectRatio="none">
-                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="3" fill="none" />
-                        </svg>
-                    </span>
-                    <br /> como um jogo.
+                <h1 class="font-display text-6xl md:text-8xl font-black leading-[0.85] tracking-tight text-brand-dark" data-aos="fade-up" data-aos-delay="100">
+                    Domine <br> seus <span class="relative inline-block text-brand-orange">hábitos <svg class="absolute w-full h-4 -bottom-1 left-0 text-brand-dark" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 12 100 5" stroke="currentColor" stroke-width="3" fill="none" /></svg></span> <br> como um jogo.
                 </h1>
-
-                <p class="text-xl text-gray-700 font-medium max-w-lg leading-relaxed">
-                    Crie streaks, suba de nível e organize sua vida.
-                    Sem anúncios, sem login obrigatório e todos os dados ficam no seu navegador.
+                <p class="text-xl text-gray-600 font-medium max-w-lg leading-relaxed border-l-4 border-brand-orange pl-6" data-aos="fade-up" data-aos-delay="200">
+                    Sem planilhas chatas. Transforme disciplina em dopamina com streaks, XP e níveis. 100% Grátis.
                 </p>
-
-                <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                    <a href="./pages/app.html"
-                        class="bg-brand-dark text-white text-center font-bold text-lg px-8 py-4 rounded-xl shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-3">
-                        COMEÇAR AGORA
-                        <span>⚡</span>
+                <div class="flex flex-col sm:flex-row gap-5 pt-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="dashboard.html" class="hover-trigger group bg-brand-dark text-white text-center font-black text-xl px-10 py-5 rounded-2xl border-3 border-transparent shadow-neo hover:shadow-neo-pressed hover:translate-x-[4px] hover:translate-y-[4px] hover:bg-white hover:text-brand-dark hover:border-brand-dark transition-all flex items-center justify-center gap-3">
+                        COMEÇAR AGORA <span class="group-hover:rotate-12 transition-transform">⚡</span>
                     </a>
-                    <a href="#opensource"
-                        class="bg-white text-brand-dark text-center font-bold text-lg px-8 py-4 rounded-xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-2">
-                        <i class="ph-bold ph-github-logo text-xl"></i>
-                        Ver Código
-                    </a>
+                    <button onclick="smoothScrollTo(event, '#features')" class="hover-trigger bg-white text-brand-dark text-center font-bold text-lg px-8 py-5 rounded-2xl border-3 border-brand-dark shadow-neo hover:shadow-neo-pressed hover:translate-x-[4px] hover:translate-y-[4px] transition-all flex items-center justify-center gap-2">
+                        Saber mais <i class="ph-bold ph-arrow-down animate-bounce"></i>
+                    </button>
                 </div>
             </div>
-
-            <div class="relative hidden lg:block perspective-1000">
-                <div
-                    class="bg-brand-surface border-3 border-brand-dark rounded-3xl p-6 shadow-[12px_12px_0px_0px_#111827] rotate-hover transform rotate-2">
-
-                    <div class="flex justify-between items-center mb-6 border-b-2 border-dashed border-gray-200 pb-4">
-                        <div class="flex gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-500 border border-brand-dark"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-400 border border-brand-dark"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500 border border-brand-dark"></div>
-                        </div>
-                        <div class="text-xs font-bold text-gray-400">DASHBOARD PREVIEW</div>
+            <div class="relative hidden lg:block perspective-1000" data-aos="fade-left" data-aos-delay="200">
+                <div class="bg-white border-4 border-brand-dark rounded-[2.5rem] p-8 shadow-[20px_20px_0px_0px_#111827] rotate-hover transform rotate-2 hover:rotate-0 transition-all duration-500 group">
+                    <div class="flex justify-between items-center mb-8 border-b-2 border-dashed border-gray-200 pb-6">
+                        <div class="flex gap-3"><div class="w-4 h-4 rounded-full bg-red-500 border-2 border-brand-dark"></div><div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-brand-dark"></div><div class="w-4 h-4 rounded-full bg-green-500 border-2 border-brand-dark"></div></div>
+                        <div class="bg-gray-100 px-3 py-1 rounded-md text-xs font-black text-gray-400 tracking-widest uppercase">Dashboard</div>
                     </div>
-
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-4 p-3 bg-brand-light border-2 border-brand-dark rounded-xl">
-                            <div class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-lg text-lg">🏃‍♂️
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-bold text-sm">Corrida Matinal</h4>
-                                <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1">
-                                    <div class="bg-green-500 h-1.5 rounded-full" style="width: 100%"></div>
-                                </div>
-                            </div>
-                            <span class="text-green-600 font-bold text-xl">✓</span>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-green-50 border-3 border-brand-dark rounded-2xl transition-transform hover:scale-105 cursor-pointer hover-trigger">
+                            <div class="w-10 h-10 flex items-center justify-center bg-green-400 text-white border-2 border-brand-dark rounded-xl text-xl shadow-sm">🏃‍♂️</div>
+                            <div class="flex-1"><h4 class="font-bold text-lg">Corrida Matinal</h4><div class="w-full bg-white h-2 rounded-full border border-brand-dark mt-2 overflow-hidden"><div class="bg-green-400 h-full w-full"></div></div></div>
+                            <span class="text-green-600 font-black text-2xl">✓</span>
                         </div>
-
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white border-2 border-brand-dark rounded-xl shadow-sm">
-                            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-lg text-lg">💧
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-bold text-sm">Beber 2L Água</h4>
-                                <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1">
-                                    <div class="bg-blue-500 h-1.5 rounded-full" style="width: 60%"></div>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold text-gray-500">3/5</span>
-                        </div>
-
-                        <div
-                            class="flex items-center gap-4 p-3 bg-brand-light border-2 border-brand-dark rounded-xl opacity-60">
-                            <div class="w-8 h-8 flex items-center justify-center bg-purple-100 rounded-lg text-lg">📚
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-bold text-sm">Ler 10 págs</h4>
-                                <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1"></div>
-                            </div>
-                            <span class="text-xs font-bold text-gray-400">0/1</span>
+                        <div class="flex items-center gap-4 p-4 bg-white border-3 border-brand-dark rounded-2xl shadow-sm transition-transform hover:scale-105 cursor-pointer hover-trigger">
+                            <div class="w-10 h-10 flex items-center justify-center bg-blue-400 text-white border-2 border-brand-dark rounded-xl text-xl shadow-sm">💧</div>
+                            <div class="flex-1"><h4 class="font-bold text-lg">Beber Água</h4><div class="w-full bg-gray-100 h-2 rounded-full border border-gray-300 mt-2"><div class="bg-blue-400 h-full w-[60%] rounded-full border-r border-gray-300"></div></div></div>
+                            <span class="text-xs font-black text-gray-400 bg-gray-100 px-2 py-1 rounded-md border border-gray-300">3/5</span>
                         </div>
                     </div>
-
-                    <div
-                        class="absolute -bottom-6 -right-6 bg-brand-purple text-white px-4 py-2 rounded-lg border-3 border-brand-dark shadow-neo transform -rotate-6 animate-bounce">
-                        <span class="font-bold">🔥 47 Dias Streak!</span>
+                    <div class="absolute -bottom-8 -left-8 bg-brand-purple text-white px-6 py-4 rounded-2xl border-4 border-brand-dark shadow-neo transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 transition-all duration-300">
+                        <div class="flex items-center gap-2"><span class="text-3xl">🔥</span><div><div class="text-xs font-bold opacity-80 uppercase">Streak</div><div class="font-black text-2xl">47 DIAS</div></div></div>
                     </div>
-
                 </div>
             </div>
-
         </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-brand-dark opacity-50"><i class="ph-bold ph-arrow-down text-3xl"></i></div>
     </main>
 
-    <section id="features" class="py-24 bg-white border-t-3 border-brand-dark relative">
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div class="text-center mb-16">
-                <span
-                    class="bg-brand-purple text-white px-4 py-1 rounded-full text-sm font-bold border-2 border-brand-dark shadow-neo-sm mb-4 inline-block">
-                    POR QUE USAR?
-                </span>
-                <h2 class="font-display text-4xl md:text-5xl font-black mb-4">
-                    Tudo que você precisa, <br>
-                    <span class="text-brand-orange">nada do que sobra.</span>
-                </h2>
-                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                    A maioria dos apps quer sua atenção. O HabitFlow quer que você termine logo e vá viver sua vida.
-                </p>
+    <section id="features" class="min-h-screen flex flex-col justify-center py-24 bg-white border-t-4 border-brand-dark relative" data-header="light">
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+            <div class="text-center mb-20" data-aos="zoom-in">
+                <h2 class="font-display text-5xl md:text-6xl font-black mb-6 text-brand-dark">Tudo que você precisa. <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-blue-500">Nada de lixo.</span></h2>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-
-                <div
-                    class="md:col-span-2 bg-blue-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div
-                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
-                        🛠️
-                    </div>
-                    <h3 class="font-display text-2xl font-bold mb-2">Configuração Total</h3>
-                    <p class="text-gray-700">
-                        Diário, 3x na semana ou dias específicos? Você manda. Configure metas numéricas (ex: 8 copos de
-                        água) ou apenas check.
-                    </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 bg-blue-50 border-4 border-brand-dark rounded-3xl p-10 shadow-neo hover:-translate-y-2 hover:shadow-neo-pressed transition-all duration-300 group hover-trigger" data-aos="fade-up">
+                    <div class="w-16 h-16 bg-white border-3 border-brand-dark rounded-2xl flex items-center justify-center text-3xl shadow-neo-sm mb-6 group-hover:rotate-12 transition-transform">🛠️</div>
+                    <h3 class="font-display text-3xl font-black mb-4">Configuração Total</h3>
+                    <p class="text-gray-700 text-lg">Diário, 3x na semana ou dias específicos? Você manda.</p>
                 </div>
-
-                <div
-                    class="bg-green-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div
-                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
-                        🔒
-                    </div>
-                    <h3 class="font-display text-2xl font-bold mb-2">100% Privado</h3>
-                    <p class="text-gray-700 text-sm">
-                        Seus dados ficam no navegador. Sem nuvem, sem tracking, sem espiões.
-                    </p>
+                <div class="bg-green-50 border-4 border-brand-dark rounded-3xl p-10 shadow-neo hover:-translate-y-2 hover:shadow-neo-pressed transition-all duration-300 group hover-trigger" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-white border-3 border-brand-dark rounded-2xl flex items-center justify-center text-3xl shadow-neo-sm mb-6 group-hover:-rotate-12 transition-transform">🔒</div>
+                    <h3 class="font-display text-3xl font-black mb-4">100% Seguro</h3>
+                    <p class="text-gray-700">Segurança de nível bancário (RLS).</p>
                 </div>
-
-                <div
-                    class="bg-purple-50 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div
-                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
-                        🔥
-                    </div>
-                    <h3 class="font-display text-2xl font-bold mb-2">Streaks</h3>
-                    <p class="text-gray-700 text-sm">
-                        Não deixe a chama apagar. O sistema visual te motiva a não quebrar a corrente.
-                    </p>
+                <div class="bg-purple-50 border-4 border-brand-dark rounded-3xl p-10 shadow-neo hover:-translate-y-2 hover:shadow-neo-pressed transition-all duration-300 group hover-trigger" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-white border-3 border-brand-dark rounded-2xl flex items-center justify-center text-3xl shadow-neo-sm mb-6 group-hover:scale-110 transition-transform">🔥</div>
+                    <h3 class="font-display text-3xl font-black mb-4">Streaks</h3>
+                    <p class="text-gray-700">Não deixe a chama apagar.</p>
                 </div>
-
-                <div
-                    class="md:col-span-2 bg-brand-yellow/20 border-3 border-brand-dark rounded-2xl p-8 shadow-neo hover:-translate-y-1 transition-transform group">
-                    <div
-                        class="w-12 h-12 bg-white border-2 border-brand-dark rounded-xl flex items-center justify-center text-2xl shadow-neo-sm mb-4 group-hover:rotate-12 transition-transform">
-                        ⚡
+                <div class="md:col-span-2 bg-yellow-50 border-4 border-brand-dark rounded-3xl p-10 shadow-neo hover:-translate-y-2 hover:shadow-neo-pressed transition-all duration-300 group hover-trigger" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 bg-white border-3 border-brand-dark rounded-2xl flex items-center justify-center text-3xl shadow-neo-sm group-hover:rotate-[360deg] transition-transform duration-700">⚡</div>
+                        <div><h3 class="font-display text-3xl font-black mb-2">Modo Foco (Pomodoro)</h3><p class="text-gray-700 text-lg">Timer integrado para você focar no que importa.</p></div>
                     </div>
-                    <h3 class="font-display text-2xl font-bold mb-2">Modo Foco</h3>
-                    <p class="text-gray-700">
-                        Timer Pomodoro integrado para você focar no que importa.
-                    </p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-brand-dark text-white border-y-4 border-brand-dark">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="font-display text-4xl md:text-5xl font-black mb-6 leading-tight">
-                    Menos fricção,<br>
-                    <span
-                        class="text-brand-orange underline decoration-brand-yellow decoration-4 underline-offset-4">mais
-                        consistência.</span>
-                </h2>
-                <p class="text-lg text-gray-300 mb-8 font-medium">
-                    O HabitFlow foi desenhado sob a filosofia do <strong>Minimalismo Cognitivo</strong>. Não queremos
-                    que você gaste tempo gerenciando o app, queremos que você gaste tempo mudando sua vida.
-                </p>
-                <div class="flex gap-4">
-                    <div
-                        class="bg-white/10 p-4 rounded-xl border-2 border-white/20 hover:bg-white/20 transition-colors">
-                        <span class="block text-2xl mb-1">🎯</span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-brand-yellow">Foco Total</span>
+    <section id="how-it-works" class="min-h-screen flex flex-col justify-center py-24 bg-brand-yellow border-t-4 border-brand-dark relative overflow-hidden" data-header="light">
+        <div class="absolute -left-20 top-40 text-[20rem] font-black opacity-5 rotate-12 select-none pointer-events-none">1</div>
+        <div class="absolute -right-20 bottom-40 text-[20rem] font-black opacity-5 -rotate-12 select-none pointer-events-none">3</div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="text-center mb-20" data-aos="fade-down">
+                <h2 class="font-display text-5xl md:text-7xl font-black mb-6 text-brand-dark">Simples como <span class="text-white text-shadow-neo">1, 2, 3.</span></h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12 items-start">
+                <div class="flex flex-col items-center text-center group" data-aos="fade-right">
+                    <div class="relative mb-8 hover-trigger transform hover:scale-110 transition-transform">
+                        <div class="w-24 h-24 bg-white border-4 border-brand-dark rounded-[2rem] flex items-center justify-center text-5xl shadow-neo">📝</div>
+                        <div class="absolute -top-4 -left-4 w-10 h-10 bg-brand-purple text-white border-3 border-brand-dark rounded-full flex items-center justify-center font-black text-lg">1</div>
                     </div>
-                    <div
-                        class="bg-white/10 p-4 rounded-xl border-2 border-white/20 hover:bg-white/20 transition-colors">
-                        <span class="block text-2xl mb-1">🧠</span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-brand-yellow">Sem Distração</span>
+                    <h3 class="font-display text-2xl font-black mb-3">Defina</h3>
+                    <p class="text-brand-dark font-bold text-lg max-w-xs">Escolha hábitos diários ou metas.</p>
+                </div>
+                <div class="flex flex-col items-center text-center group" data-aos="fade-up">
+                    <div class="relative mb-8 hover-trigger transform hover:scale-110 transition-transform">
+                        <div class="w-24 h-24 bg-white border-4 border-brand-dark rounded-[2rem] flex items-center justify-center text-5xl shadow-neo">✅</div>
+                        <div class="absolute -top-4 -left-4 w-10 h-10 bg-brand-orange text-white border-3 border-brand-dark rounded-full flex items-center justify-center font-black text-lg">2</div>
                     </div>
+                    <h3 class="font-display text-2xl font-black mb-3">Marque</h3>
+                    <p class="text-brand-dark font-bold text-lg max-w-xs">Cumpriu a missão? Dê o check.</p>
+                </div>
+                <div class="flex flex-col items-center text-center group" data-aos="fade-left">
+                    <div class="relative mb-8 hover-trigger transform hover:scale-110 transition-transform">
+                        <div class="w-24 h-24 bg-white border-4 border-brand-dark rounded-[2rem] flex items-center justify-center text-5xl shadow-neo">🚀</div>
+                        <div class="absolute -top-4 -left-4 w-10 h-10 bg-green-500 text-white border-3 border-brand-dark rounded-full flex items-center justify-center font-black text-lg">3</div>
+                    </div>
+                    <h3 class="font-display text-2xl font-black mb-3">Evolua</h3>
+                    <p class="text-brand-dark font-bold text-lg max-w-xs">Ganhe XP e suba de nível.</p>
                 </div>
             </div>
-            <div class="relative">
-                <div
-                    class="bg-white text-brand-dark p-8 rounded-3xl border-4 border-brand-dark shadow-[12px_12px_0px_0px_rgba(255,255,255,0.2)] rotate-2">
-                    <p class="font-display text-2xl font-black italic">"A repetição cria o mestre, o HabitFlow cria a
-                        repetição."</p>
-                    <div class="flex items-center gap-3 mt-4 pt-4 border-t-2 border-gray-100">
-                        <div
-                            class="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center text-white font-bold">
-                            L</div>
+        </div>
+    </section>
+
+    <section id="gamification-section" class="min-h-screen flex flex-col justify-center py-24 bg-brand-dark text-white border-t-4 border-brand-dark bg-noise relative" data-header="dark">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-purple/20 pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center w-full relative z-10">
+            <div class="order-2 lg:order-1" data-aos="flip-left" data-aos-duration="1000">
+                <div class="bg-gray-100 text-brand-dark border-4 border-white rounded-[2.5rem] p-8 shadow-[0px_0px_40px_rgba(255,144,232,0.3)] relative group transform hover:scale-[1.02] transition-transform duration-500 hover-trigger">
+                    <div class="absolute -top-6 -right-6 bg-brand-orange text-white px-6 py-2 rounded-xl border-4 border-brand-dark font-black shadow-neo transform rotate-6 group-hover:rotate-12 transition-transform">LEVEL 5</div>
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-20 h-20 bg-brand-purple border-4 border-brand-dark rounded-full flex items-center justify-center text-4xl"><span class="z-10">😎</span></div>
+                        <div><div class="font-display font-black text-2xl uppercase tracking-wide">Player 1</div><div class="text-sm font-bold text-gray-500 bg-white px-2 py-1 rounded border border-gray-300 inline-block mt-1">Mestre dos Hábitos</div></div>
+                    </div>
+                    <div class="space-y-6">
                         <div>
-                            <p class="font-bold text-sm">Lucas Dev</p>
-                            <p class="text-xs text-gray-500">Criador do HabitFlow</p>
+                            <div class="flex justify-between text-xs font-black uppercase mb-2 tracking-widest text-gray-400"><span>XP Progress</span><span>450 / 500</span></div>
+                            <div class="w-full h-6 bg-gray-300 rounded-full border-3 border-brand-dark overflow-hidden relative">
+                                <div class="bg-gradient-to-r from-brand-orange to-yellow-400 h-full w-[90%] border-r-3 border-brand-dark"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-2xl border-3 border-brand-dark text-center hover:bg-blue-50 transition-colors"><div class="text-3xl mb-1 animate-bounce">🔥</div><div class="font-black text-2xl">12</div><div class="text-[10px] font-black text-gray-400 uppercase">Dias Streak</div></div>
+                            <div class="bg-white p-4 rounded-2xl border-3 border-brand-dark text-center hover:bg-green-50 transition-colors"><div class="text-3xl mb-1 animate-pulse">🏆</div><div class="font-black text-2xl">8</div><div class="text-[10px] font-black text-gray-400 uppercase">Badges</div></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="order-1 lg:order-2 space-y-8" data-aos="fade-left">
+                <div class="inline-block bg-brand-purple px-5 py-2 rounded-full border-2 border-white font-bold text-xs uppercase tracking-widest shadow-[4px_4px_0px_white]">RPG System</div>
+                <h2 class="font-display text-5xl md:text-7xl font-black leading-none">Sua vida é o <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow to-brand-orange">melhor jogo.</span></h2>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors hover-trigger cursor-pointer"><div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-brand-dark font-bold">✓</div><span class="font-bold text-lg">Feedback visual imediato</span></div>
+                    <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors hover-trigger cursor-pointer"><div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-brand-dark font-bold">∞</div><span class="font-bold text-lg">Sistema de níveis infinito</span></div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="opensource" class="py-24 bg-brand-light">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div
-                class="inline-block bg-brand-yellow px-4 py-1 border-2 border-brand-dark rounded-full font-bold text-xs uppercase tracking-widest mb-6 shadow-neo-sm">
-                Comunidade
+    <section id="opensource" class="min-h-screen flex flex-col justify-center py-24 bg-[#0F172A] text-white border-t-4 border-brand-dark bg-grid-neon relative" data-header="dark">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-[#0F172A] pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 text-center w-full relative z-10">
+            <div data-aos="zoom-in">
+                <div class="inline-block bg-transparent text-[#3ECF8E] px-6 py-2 border-2 border-[#3ECF8E] rounded-full font-black text-sm uppercase tracking-widest mb-8 shadow-[0_0_15px_rgba(62,207,142,0.4)] animate-pulse">
+                    &lt;Open Source /&gt;
+                </div>
+                <h2 class="font-display text-5xl md:text-7xl font-black mb-8 text-white">
+                    Código Aberto. <br> <span class="text-[#3ECF8E]">Poder Ilimitado.</span>
+                </h2>
+                <p class="text-2xl text-gray-400 mb-12 font-medium leading-relaxed max-w-2xl mx-auto">
+                    O HabitFlow não é apenas um app. É uma declaração. Construído com tecnologias modernas para desenvolvedores exigentes.
+                </p>
             </div>
-            <h2 class="font-display text-5xl font-black mb-8">Construído por devs, para devs.</h2>
-            <p class="text-xl text-gray-600 mb-10 font-medium leading-relaxed">
-                O HabitFlow é 100% open source. Acreditamos que ferramentas de evolução pessoal devem ser acessíveis.
-                Quer adicionar uma funcionalidade? O repositório é seu. Gostou do projeto? Pague um café!
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="https://github.com/debugglucas" target="_blank"
-                    class="inline-flex items-center justify-center gap-3 bg-white border-3 border-brand-dark px-8 py-5 rounded-2xl font-display text-xl font-black shadow-neo hover:shadow-neo-pressed hover:translate-x-1 hover:translate-y-1 transition-all">
-                    <i class="ph-bold ph-github-logo text-3xl"></i>
-                    CONTRIBUIR NO GITHUB
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-24" data-aos="fade-up">
+                <a href="https://github.com/debugglucas" target="_blank" class="hover-trigger group inline-flex items-center justify-center gap-4 bg-[#3ECF8E] text-[#0F172A] border-none px-10 py-6 rounded-2xl font-display text-xl font-black shadow-[0_0_20px_rgba(62,207,142,0.5)] hover:shadow-[0_0_40px_rgba(62,207,142,0.8)] hover:scale-105 transition-all">
+                    <i class="ph-bold ph-github-logo text-4xl"></i>
+                    FORK NO GITHUB
                 </a>
-
-                <a href="#"
-                    class="inline-flex items-center justify-center gap-3 bg-[#FF90E8] border-3 border-brand-dark px-8 py-5 rounded-2xl font-display text-xl font-black shadow-neo hover:shadow-neo-pressed hover:translate-x-1 hover:translate-y-1 transition-all text-brand-dark">
-                    <i class="ph-fill ph-coffee text-3xl"></i>
-                    APOIAR O PROJETO
-                </a>
             </div>
 
-            <div
-                class="mt-16 flex justify-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
-                <span class="font-bold flex items-center gap-2"><i class="ph-bold ph-file-html"></i> HTML5</span>
-                <span class="font-bold flex items-center gap-2"><i class="ph-bold ph-paint-brush"></i> Tailwind</span>
-                <span class="font-bold flex items-center gap-2"><i class="ph-bold ph-code"></i> JavaScript</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white border-t-3 border-brand-dark overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                <div class="max-w-xl">
-                    <h2 class="font-display text-5xl font-black mb-4 italic">Roadmap 2026</h2>
-                    <p class="text-gray-600 font-medium text-lg">
-                        O HabitFlow está apenas começando. Confira o que estamos buildando para tornar este o app
-                        definitivo de evolução pessoal.
-                    </p>
-                </div>
-                <div class="hidden md:block text-8xl opacity-10 font-black uppercase tracking-tighter rotate-12">
-                    Future
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-4 gap-4">
-                <div class="p-6 bg-brand-light border-3 border-brand-dark rounded-2xl relative shadow-neo-sm">
-                    <div
-                        class="absolute -top-3 -right-3 bg-green-500 text-white w-8 h-8 rounded-full border-2 border-brand-dark flex items-center justify-center shadow-sm">
-                        <i class="ph-bold ph-check"></i>
+            <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex flex-col items-center gap-4 group hover-trigger cursor-pointer">
+                    <div class="w-24 h-24 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#E34F26]/10 group-hover:border-[#E34F26] transition-all duration-300">
+                        <i class="ph-bold ph-file-html text-5xl text-gray-500 group-hover:text-[#E34F26] transition-colors"></i>
                     </div>
-                    <span class="text-xs font-black text-brand-purple uppercase tracking-widest">Fase 01</span>
-                    <h4 class="font-bold text-xl mt-2">Core Engine</h4>
-                    <p class="text-sm text-gray-500 mt-2 italic">Sistema de hábitos, Timer Pomodoro e LocalStorage.</p>
+                    <span class="font-bold text-gray-500 group-hover:text-[#E34F26] uppercase tracking-wider text-sm transition-colors">HTML5</span>
                 </div>
 
-                <div
-                    class="p-6 bg-brand-yellow/10 border-3 border-brand-dark rounded-2xl relative shadow-neo ring-4 ring-brand-yellow/30">
-                    <div
-                        class="absolute -top-3 -right-3 bg-brand-orange text-white px-2 py-1 rounded-lg border-2 border-brand-dark text-[10px] font-black animate-pulse">
-                        BUILDING
+                <div class="flex flex-col items-center gap-4 group hover-trigger cursor-pointer">
+                    <div class="w-24 h-24 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#38B2AC]/10 group-hover:border-[#38B2AC] transition-all duration-300">
+                        <i class="ph-bold ph-paint-brush text-5xl text-gray-500 group-hover:text-[#38B2AC] transition-colors"></i>
                     </div>
-                    <span class="text-xs font-black text-brand-purple uppercase tracking-widest">Fase 02</span>
-                    <h4 class="font-bold text-xl mt-2">Gamification</h4>
-                    <p class="text-sm text-gray-500 mt-2">Sistema de Níveis (XP), Badges e conquistas visuais.</p>
+                    <span class="font-bold text-gray-500 group-hover:text-[#38B2AC] uppercase tracking-wider text-sm transition-colors">Tailwind</span>
                 </div>
 
-                <div class="p-6 bg-gray-50 border-3 border-gray-200 rounded-2xl opacity-60">
-                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest">Fase 03</span>
-                    <h4 class="font-bold text-xl mt-2 text-gray-400">Insights 📊</h4>
-                    <p class="text-sm text-gray-400 mt-2">Gráficos de performance semanal e histórico avançado.</p>
-                </div>
-
-                <div class="p-6 bg-gray-50 border-3 border-gray-200 rounded-2xl opacity-60">
-                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest">Fase 04</span>
-                    <h4 class="font-bold text-xl mt-2 text-gray-400">Sync ☁️</h4>
-                    <p class="text-sm text-gray-400 mt-2">Sincronização opcional em nuvem e modo multi-dispositivo.</p>
+                <div class="flex flex-col items-center gap-4 group hover-trigger cursor-pointer">
+                    <div class="w-24 h-24 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#3ECF8E]/10 group-hover:border-[#3ECF8E] transition-all duration-300">
+                        <i class="ph-bold ph-database text-5xl text-gray-500 group-hover:text-[#3ECF8E] transition-colors"></i>
+                    </div>
+                    <span class="font-bold text-gray-500 group-hover:text-[#3ECF8E] uppercase tracking-wider text-sm transition-colors">Supabase</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t-3 border-brand-dark bg-white">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex items-center">
-                <span class="font-display text-xl font-bold italic tracking-tighter">HabitFlow</span>
+    <footer class="py-10 border-t-4 border-brand-dark bg-brand-dark text-white relative overflow-hidden" data-header="dark">
+        <div class="absolute top-0 left-0 w-full whitespace-nowrap opacity-5 font-black text-[8rem] leading-none animate-marquee pointer-events-none select-none">HABITFLOW OPEN SOURCE GAMIFY YOUR LIFE HABITFLOW</div>
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <span class="font-display text-2xl font-black italic tracking-tighter">HabitFlow</span>
+                <span class="text-xs font-bold bg-white/10 px-2 py-1 rounded text-gray-400">v1.0.0 (Cloud Edition)</span>
             </div>
-            <p class="text-gray-500 font-bold text-sm text-center md:text-left">
-                © 2026 HabitFlow. Open Source License.<br>
-                Desenvolvido com 🧡 por <span class="text-brand-orange underline">Lucas Dev</span>.
-            </p>
+            <p class="text-gray-400 text-sm text-center md:text-left font-medium">© 2026 HabitFlow. Open Source License.<br>Desenvolvido com <span class="text-red-500 animate-pulse">🧡</span> por Lucas Dev.</p>
             <div class="flex gap-6">
-                <a href="https://www.instagram.com/debuglucas/" target="_blank"
-                    class="text-brand-dark hover:text-brand-orange transition-colors hover:scale-110 transform"><i
-                        class="ph-fill ph-instagram-logo text-2xl"></i></a>
-                <a href="#"
-                    class="text-brand-dark hover:text-brand-orange transition-colors hover:scale-110 transform"><i
-                        class="ph-fill ph-twitter-logo text-2xl"></i></a>
-                <a href="https://github.com/debugglucas" target="_blank"
-                    class="text-brand-dark hover:text-brand-orange transition-colors hover:scale-110 transform"><i
-                        class="ph-fill ph-github-logo text-2xl"></i></a>
+                <a href="https://instagram.com/debuglucas" target="_blank" class="hover-trigger w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-brand-orange text-white transition-all hover:scale-110"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="https://github.com/debugglucas" target="_blank" class="hover-trigger w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-black text-white transition-all hover:scale-110"><i class="ph-fill ph-github-logo text-2xl"></i></a>
             </div>
         </div>
     </footer>
 
-</body>
 
+    <script src="js/animation.js"></script>
+    <script type="module">
+        import { supabaseClient } from './js/modules/client.js';
+        async function checkLogin() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                const headerCta = document.getElementById('header-cta');
+                if (headerCta) {
+                    headerCta.textContent = "Meu Painel ⚡";
+                    headerCta.classList.add('bg-brand-purple');
+                    headerCta.href = "pages/dashboard.html";
+                }
+            }
+        }
+        checkLogin();
+    </script>
+</body>
 </html>

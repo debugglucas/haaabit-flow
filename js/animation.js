@@ -1,5 +1,9 @@
 // 1. INICIALIZA O AOS
-AOS.init({ duration: 800, once: true, offset: 50 });
+AOS.init({ 
+    duration: 800, 
+    once: true, 
+    offset: 50 
+});
 
 // 2. INICIALIZA O LENIS
 const lenis = new Lenis({

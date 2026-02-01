@@ -268,7 +268,8 @@
     </footer>
 
     <script src="js/animation.js"></script>
-    <script type="module">
+   
+   <script type="module">
         import { supabaseClient } from './js/modules/client.js';
         async function checkLogin() {
             const { data: { session } } = await supabaseClient.auth.getSession();
